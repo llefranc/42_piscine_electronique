@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/13 15:23:00 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/13 16:53:52 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,19 +21,20 @@ FLAGS		= -Wall -Os -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
 
-FILES		= main
+FILE		= main
+
 
 all: hex flash
 
 # Genere les bin files puis les hex files au format intel
 hex:
-	$(CC) $(FLAGS) -c $(FILES).c -o $(FILES).bin
-	$(OBJCOPY) -O ihex $(FILES).bin $(FILES).hex
-	avr-size --format=avr --mcu=$(DEVICE) $(FILES).hex
+	$(CC) $(FLAGS) -c $(FILE).c -o $(FILE).bin
+	$(OBJCOPY) -O ihex $(FILE).bin $(FILE).hex
+	avr-size --format=avr --mcu=$(DEVICE) $(FILE).hex
 
 # Flash en usb les fichiers hex
 flash:
-	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(USB) -b $(BAUD) -U flash:w:$(FILES).hex:i
+	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(USB) -b $(BAUD) -U flash:w:$(FILE).hex:i
 
 clean:
 	rm -rf *.bin *.hex
