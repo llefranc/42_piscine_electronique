@@ -15,9 +15,9 @@
 /*
  * sbi: set bit in register
  * ldi: load immedate
- * sbiw: substract immediate from word
- * sbc: subsctract with carry two registers
- * brne: branch if not equal
+ * sbiw: substract immediate from word (2 clocks cycle)
+ * sbc: substract with carry two registers (1 clock cycle)
+ * brne: branch if not equal (2 clock cycle if not equal)
  * eor: exclusive OR register
  * in: in port
  * out: out port
@@ -53,12 +53,12 @@ int main(void)
 
 		/*
 		 * Frequency is 1MHz. CPU executes 1 million instructions / s / MHz.
-		 * We need to switch LED every 0,5 sec >> every 500 000 instructions.
-		 * while loop takes 4 instruction. We should inc i until 500 000 / 4 = 125 000.
+		 * We need to switch LED every 0,5 sec.
+		 * while loop takes 4 instruction, but 8 clocks cycle. 
+		 * We should inc i until (1MHz / 2) = 500 000 >>> 500 000 / 8 = 62 500.
 		 * 
-		 * But i < 125 000 doesn't work !! But i < 2 000 000 (500 000 * 4) works,
-		 * doesn't make any sense. Maybe the frequency is 4 MHz (the variable F_CPU in
-		 * Makefile doesn't seem to work).
+		 * But i < 62 500 doesn't work !! But i < 2 000 000 (500 000 * 4) works,
+		 * doesn't make any sense.
 		 */
 		while (i < 500000 * 4)
 			i = i + 1;
