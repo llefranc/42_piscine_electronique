@@ -16,7 +16,7 @@ BAUD		= 115200
 
 CC		= avr-gcc
 OBJCOPY		= avr-objcopy
-FLAGS		= -Wall -Wextra -Werror -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
+FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
