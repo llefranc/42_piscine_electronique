@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/13 17:40:53 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/13 17:34:35 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJCOPY		= avr-objcopy
 FLAGS		= -Wall -Wextra -Werror -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/ttyUSB0
+USB 		= /dev/cu.usbserial-141340
 
 FILE		= main
 

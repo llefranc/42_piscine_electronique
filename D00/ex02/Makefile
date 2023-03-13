@@ -37,3 +37,5 @@ flash:
 
 clean:
 	rm -rf *.bin *.hex
+
+phony: all hex clean
