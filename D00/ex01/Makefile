@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/13 17:21:13 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/13 17:40:53 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ BAUD		= 115200
 
 CC		= avr-gcc
 OBJCOPY		= avr-objcopy
-FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
+FLAGS		= -Wall -Wextra -Werror -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
