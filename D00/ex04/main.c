@@ -16,7 +16,7 @@
 int main(void)
 {
 	/* PB0 = LED D1 | PD2 = SW1 */
-	int is_pressed = 0;
+	char is_pressed = 0;
 
 	DDRB |= (1 << PB0);
 	PORTD |= (1 << PD2);

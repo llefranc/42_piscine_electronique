@@ -54,13 +54,13 @@ int main(void)
 		/*
 		 * Frequency is 1MHz. CPU executes 1 million instructions / s / MHz.
 		 * We need to switch LED every 0,5 sec.
-		 * while loop takes 4 instruction, but 8 clocks cycle. 
-		 * We should inc i until (1MHz / 2) = 500 000 >>> 500 000 / 8 = 62 500.
+		 * while loop takes 4 instruction, but 6 clocks cycle. 
 		 * 
-		 * But i < 62 500 doesn't work !! But i < 2 000 000 (500 000 * 4) works,
-		 * doesn't make any sense.
+		 * The frequency seems to be 16MHz.
+		 * - Switching LED every 0,5 sec => 16 0000 0000 / 2 = 8 000 000
+		 * - One loop tour takes 6 clock cycles => 8 000 000 / 6 = 1 333 333 
 		 */
-		while (i < 500000 * 4)
+		while (i < 1333333)
 			i = i + 1;
 		PORTB ^= (1 << PB0); /* switching between HIGH and LOW for PB0 */
 	}

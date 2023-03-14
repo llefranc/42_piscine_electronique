@@ -19,7 +19,7 @@ OBJCOPY		= avr-objcopy
 FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/ttyUSB0
+USB 		= /dev/cu.usbserial-142340
 
 FILE		= main
 
