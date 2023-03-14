@@ -6,12 +6,12 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/13 17:40:49 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/14 10:23:31 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DEVICE		= atmega328p
-F_CPU		= 1000000
+F_CPU		= 16000000
 BAUD		= 115200
 
 CC		= avr-gcc

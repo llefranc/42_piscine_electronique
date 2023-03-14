@@ -6,12 +6,12 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/13 17:34:35 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/14 10:23:17 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DEVICE		= atmega328p
-F_CPU		= 1000000
+F_CPU		= 16000000
 BAUD		= 115200
 
 CC		= avr-gcc
@@ -19,7 +19,7 @@ OBJCOPY		= avr-objcopy
 FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/cu.usbserial-141340
+USB 		= /dev/ttyUSB0
 
 FILE		= main
 
