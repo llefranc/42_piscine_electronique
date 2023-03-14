@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:56:17 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/14 12:08:30 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/14 12:58:02 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void update_leds(int8_t nb)
 	PORTB |= (nb & (1 << 3)) << 1;      /* setting PB4 */
 }
 
-uint8_t update_nb(int8_t *nb, int8_t op, uint8_t is_pressed, uint16_t pin_x,
+uint8_t update_nb(int8_t *nb, int8_t op, uint8_t is_pressed, uint8_t reg,
                   uint8_t pin_n)
 {
-	if (!is_pressed && !(pin_x & (1 << pin_n))) {
+	if (!is_pressed && !(reg & (1 << pin_n))) {
 		is_pressed = 1;
 		_delay_ms(20);
 		*nb += op;           /* adding +1 or -1 */
-	} else if (is_pressed && (pin_x & (1 << pin_n))) {
+	} else if (is_pressed && (reg & (1 << pin_n))) {
 		is_pressed = 0;
 		_delay_ms(20);
 	}
