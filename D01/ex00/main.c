@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:17:38 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/15 17:15:59 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:28:10 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int main(void)
 	*/
 
 	DDRB |= (1 << PB1);
-	TCCR1B |= (1 << CS12); // prescaler 256
-	TCCR1A |= (1 << COM1A0); // toggle
-	TCCR1B |= (1 << WGM12); // Clear Timer on Compare Match (CTC) Mode
+	TCCR1B |= (1 << WGM12) | (1 << CS12); // Clear Timer on Compare Match (CTC) Mode + prescaler 256
+	TCCR1A |= (1 << COM1A0); // toggle pin OC1A pin = PB1 = LED D2
 	OCR1A = F_CPU / 256 / 2; // F_CPU / prescaler * 0,5 sec
 
 	while (1) {}
