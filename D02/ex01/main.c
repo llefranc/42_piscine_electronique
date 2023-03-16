@@ -6,12 +6,12 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:22:15 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/16 19:24:17 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:27:38 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <avr/interrupt.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #define TIMER0_PRESCALER 1024
 #define TIMER1_PRESCALER 8
