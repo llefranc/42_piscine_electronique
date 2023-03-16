@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 17:28:44 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/15 18:53:27 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:04:26 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,21 @@ int main(void)
 	 */
 	TCCR1A |= (1 << COM1A1);
 
-	/* TOP value, clock frequency divided by prescaler value */
-	ICR1 = F_CPU / 1024;
-	/* MATCH value >>>> a verifier */
-	OCR1A = F_CPU / 1024 / 20;
+	/*
+	 * TOP value, clock frequency divided by prescaler value. Dividing by 2
+	 * because of double slopes of PWM. So the timer will increment and
+	 * reach TOP value in 0,5 sec, and then decrement and reach BOTTOM value
+	 * (0) in 0,5 sec giving a cycle of 1 sec.
+	 */
+	ICR1 = F_CPU / 1024 / 2;
+
+	/*
+	 * MATCH value, clock frequency divided by prescaler value. Dividing by
+	 * 2 because of double slopes of PWM, and dividing by 10 because we want
+	 * a duty cycle of 10%. So the LED will be on during 5% of 0,5 sec for
+	 * the first slope, and 5% of 0,5 sec of second slope == 10% of 1 cycle
+	 */
+	OCR1A = F_CPU / 1024 / 2 / 10;
 
 	while (1) {}
 }
