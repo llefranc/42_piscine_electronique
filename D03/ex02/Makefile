@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/17 17:21:46 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/17 23:47:39 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,25 @@ FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRA
 PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
 
-FILE		= main
-
+NAME		= atmega
+SRCS		= main.c
+BINS		= $(SRCS:.c=.bin)
 
 all: hex flash
 
 # Genere les bin files puis les hex files au format intel
-hex:
-	$(CC) $(FLAGS) $(FILE).c -o $(FILE).bin
-	$(OBJCOPY) -O ihex $(FILE).bin $(FILE).hex
+hex: $(BINS)
+	$(CC) -o $(NAME).bin $(FLAGS) $(BINS)
+	$(OBJCOPY) -O ihex $(NAME).bin $(NAME).hex
 
 # Flash en usb les fichiers hex
 flash:
-	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(USB) -b $(UART_BAUDRATE) -U flash:w:$(FILE).hex:i
+	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(USB) -b $(UART_BAUDRATE) -U flash:w:$(NAME).hex:i
 
 clean:
 	rm -rf *.bin *.hex
 
 phony: all hex clean
+
+%.bin:	%.c
+	@$(CC) $(FLAGS) -o $@ -c $<
