@@ -6,12 +6,9 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:08:16 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/17 18:03:13 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:03:52 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-// Transmission du caractere S (ASCII val = 83) en 7 bits: 0 1 0 1 0 1 1
-// -> on transmet en reverse 1 1 0 1 0 1 0
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
