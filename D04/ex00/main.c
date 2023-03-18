@@ -12,28 +12,24 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/twi.h>
 
 #include "uart.h"
+#include "i2c.h"
 
-#define UBRRN F_CPU/8/UART_BAUDRATE-1
-
-#define TWBR_VAL 18
-#define I2C_PRESCALER 4
-#define F_SCL = F_CPU/(16+2*TWBR_VAL*I2C_PRESCALER)
-
-// 16 000 000 / 100 000 = 160
-
-// 160 =  16 + 2 * (TWBR) * PRESCALER
-// 144 =  2 * (TWBR) * PRESCALER
-// 72 = (TWBR) * PRESCALER
-// 72 = TWBR * 4
-// 18 = TWBR
+ISR(TWI_vect)
+{
+	/* Sending TWI status register value after each TWI operation */
+	uart_tx((char)(TWSR & TW_STATUS_MASK) + '0');
+	uart_tx(' ');
+	i2c_stop();
+}
 
 int main(void)
 {
 	sei();
-	uart_init(UBRRN, (0 << RXCIE0));
-	uart_printstr("Salut\r\n");
-
+	uart_init(UART_UBRRN, (0 << RXCIE0));
+	i2c_init();
+	i2c_start();
 	while (1);
 }

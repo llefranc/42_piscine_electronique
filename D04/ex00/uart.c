@@ -35,23 +35,3 @@ void uart_init(uint16_t ubbrn, uint8_t rxcie0)
 	 */
 	UCSR0A |= (1 << U2X0);
 }
-
-void uart_tx(char c)
-{
-	while (!(UCSR0A & (1 << UDRE0)));
-	UDR0 = c;
-}
-
-void uart_printstr(const char* str)
-{
-	uint16_t i = 0;
-
-	while (str[i])
-		uart_tx(str[i++]);
-}
-
-char uart_rx(void)
-{
-	while (!(UCSR0A & (1 << RXC0))); /* Waiting to receive a byte */
-	return UDR0;
-}
