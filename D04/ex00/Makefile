@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/17 23:47:44 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/18 20:33:32 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
 
 NAME		= atmega
-SRCS		= main.c
+SRCS		= main.c uart.c
 BINS		= $(SRCS:.c=.bin)
 
 all: hex flash
