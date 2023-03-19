@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:51:18 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/19 17:13:21 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:04:10 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,6 @@ void i2c_read(void)
 
 	TWCR = (1 << TWINT) | (1 << TWEA) | (1 << TWEN); /* recv byte + ACK */
 	i2c_m_wait_for_op_to_proceed();
-	while (TWDR & (1 << 7)) { /* wait until 7th bit of status byte is 0*/
-		_delay_ms(50);
-		TWCR = (1 << TWINT) | (1 << TWEN);
-		i2c_m_wait_for_op_to_proceed();
-	}
 	print_hex_value(TWDR); /* printing status byte */
 	uart_tx(' ');
 
