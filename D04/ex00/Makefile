@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/18 20:33:32 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/19 13:53:27 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
 
 NAME		= atmega
-SRCS		= main.c uart.c
+HEAD		= i2c.h uart.h
+SRCS		= main.c uart.c i2c.c
 BINS		= $(SRCS:.c=.bin)
 
 all: hex flash
@@ -35,6 +36,8 @@ hex: $(BINS)
 # Flash en usb les fichiers hex
 flash:
 	avrdude -v -p $(DEVICE) -c $(PROGRAMMER) -P $(USB) -b $(UART_BAUDRATE) -U flash:w:$(NAME).hex:i
+
+$(BINS) : $(HEAD)
 
 clean:
 	rm -rf *.bin *.hex
