@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:51:18 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/19 14:04:36 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:01:01 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "uart.h"
 
-void i2c_print_status(void)
+static void i2c_print_status(void)
 {
 	static const char *hex = "0123456789ABCDEF";
 	char buf[6] = { [0] = '0', 'x', [4] = ' ' };
