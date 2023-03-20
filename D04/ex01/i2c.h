@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:28:42 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/19 17:13:43 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:24:49 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define I2C_PRESCALER 4
 #define I2C_F_SCL = F_CPU/(16+2*TWBR_VAL*I2C_PRESCALER)
 
-#define I2C_P_ATH20_ADDR 0x38
+#define I2C_SLA_ATH20 0x38
 
 #include <avr/io.h>
 

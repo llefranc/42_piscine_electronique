@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:51:18 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/19 21:24:57 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/20 14:24:49 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void i2c_start(void)
 	i2c_m_wait_for_op_to_proceed();
 
 	/* Writing SLA+W */
-	TWDR = (I2C_P_ATH20_ADDR << 1) | TW_WRITE;
+	TWDR = (I2C_SLA_ATH20 << 1) | TW_WRITE;
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	i2c_m_wait_for_op_to_proceed();
 }
@@ -52,7 +52,7 @@ uint8_t i2c_is_aht20_calibrated(void)
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN); /* repeated start */
 	i2c_m_wait_for_op_to_proceed();
 
-	TWDR = (I2C_P_ATH20_ADDR << 1) | TW_READ; /* sla+r */
+	TWDR = (I2C_SLA_ATH20 << 1) | TW_READ; /* sla+r */
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	i2c_m_wait_for_op_to_proceed();
 
@@ -142,7 +142,7 @@ void i2c_read(void)
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN); /* start */
 	i2c_m_wait_for_op_to_proceed();
 
-	TWDR = (I2C_P_ATH20_ADDR << 1) | TW_READ; /* sla+r */
+	TWDR = (I2C_SLA_ATH20 << 1) | TW_READ; /* sla+r */
 	TWCR = (1 << TWINT) | (1 << TWEN);
 	i2c_m_wait_for_op_to_proceed();
 
