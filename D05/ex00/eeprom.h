@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:59 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 21:56:29 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/20 22:44:56 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,4 @@ uint8_t eeprom_read(uint16_t addr);
 int8_t eeprom_is_m_num_ok(uint16_t addr, uint32_t magic_nb);
 void eeprom_write(uint16_t addr, uint8_t data);
 
-#endif /* EEPROM)H */
+#endif /* EEPROM_H */

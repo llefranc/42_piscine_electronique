@@ -22,9 +22,11 @@
 #define COUNTERS_ADDR 0x0000
 
 uint8_t eeprom_read(uint16_t addr);
-int8_t eeprom_is_m_num_ok(uint16_t addr, uint32_t magic_nb);
+int8_t eeprom_is_m_num_ok(uint16_t addr);
 void eeprom_write(uint16_t addr, uint8_t data);
 void eeprom_write_m_num(uint16_t addr);
+int8_t eeprom_safe_read(void *buf, uint16_t addr, uint16_t len);
+int8_t eeprom_safe_write(void *buf, uint16_t addr, uint16_t len);
 
 static inline void eeprom_erase(uint16_t addr, uint16_t len)
 {
