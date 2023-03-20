@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 21:29:47 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 16:51:44 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:31:36 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,95 +216,26 @@ int main(void)
 
 	/* --------------- QUATRIEME EXEMPLE --------------- */
 	_delay_ms(1000);
-	i2c_start();
-	i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	i2c_write(I2C_PCA955_O0);
-	i2c_write(0b01111111); /* allume qu'un chiffre */
-	i2c_write(0xFF); /* allume toutes les barres */
-	i2c_stop();
 
-	_delay_ms(1000);
-	i2c_start();
-	i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	i2c_write(I2C_PCA955_O0);
-	i2c_write(0b10111111); /* allume qu'un chiffre */
-	i2c_write(0x0F); /* allume toutes les barres */
-	i2c_stop();
+	/* MARRRRRRRRRRRRRRRRRRRRRCHEEEEE PERMET D'ALLUMER 2 CHIFFRES !!! */
+	while (1) {
+		i2c_start();
+		i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
+		i2c_write(I2C_PCA955_O0);
+		i2c_write(0b01111111); /* allume qu'un chiffre */
+		i2c_write(0xFF); /* allume toutes les barres */
+		i2c_stop();
 
-	_delay_ms(1000);
-	i2c_start();
-	i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	i2c_write(I2C_PCA955_O0);
-	i2c_write(0b11011111); /* allume qu'un chiffre */
-	i2c_stop();
+		_delay_ms(10);
 
-	_delay_ms(1000);
-	i2c_start();
-	i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	i2c_write(I2C_PCA955_O0);
-	i2c_write(0b11101111); /* allume qu'un chiffre */
-	i2c_stop();
+		i2c_start();
+		i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
+		i2c_write(I2C_PCA955_O0);
+		i2c_write(0b10111111); /* allume qu'un chiffre */
+		i2c_write(0x0F); /* allume toutes les barres */
+		i2c_stop();
+		_delay_ms(10);
 
-	_delay_ms(1000);
-	i2c_start();
-	i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	i2c_write(I2C_PCA955_O1);
-	i2c_write(0b11101111); /* allume qu'un chiffre */
-	i2c_write(0b11011111); /* allume qu'un chiffre */
-	i2c_write(0b10111111); /* allume qu'un chiffre */
-	i2c_write(0b01111111); /* allume qu'un chiffre */
-	i2c_stop();
+	}
 
-	// _delay_ms(1000);
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write(0b10111111); /* allume un autre chiffre */
-	// i2c_stop();
-	/* ----------------------------------------------- */
-
-
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_C0);
-	// i2c_write(0b00001111);
-	// i2c_write(0x00);
-	// i2c_stop();
-
-
-	// _delay_ms(1000);
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write(0xF0);
-	// i2c_write(0xF0);
-	// i2c_stop();
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write(~(0 << D10));
-	// i2c_stop();
-
-
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write(~(0 << D10));
-	// i2c_stop();
-
-
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write(0x00);
-	// i2c_write(0x00);
-	// i2c_stop();
-
-	// i2c_start();
-	// i2c_sla_wr(I2C_SLA_PCA955, TW_WRITE);
-	// i2c_write(I2C_PCA955_O0);
-	// i2c_write((1 << D9));
-	// i2c_stop();
-
-	while (1);
 }
