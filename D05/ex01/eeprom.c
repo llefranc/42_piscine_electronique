@@ -43,3 +43,11 @@ void eeprom_write(uint16_t addr, uint8_t data)
 	EECR |= (1 << EEPE);
 	sei();
 }
+
+void eeprom_write_m_num(uint16_t addr)
+{
+	eeprom_write(addr, M_NUM_BYTE);
+	eeprom_write(addr + 1, M_NUM_BYTE);
+	eeprom_write(addr + 2, M_NUM_BYTE);
+	eeprom_write(addr + 3, M_NUM_BYTE);
+}
