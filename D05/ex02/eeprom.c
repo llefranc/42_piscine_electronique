@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:03 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 22:37:11 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:24:02 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ uint8_t eeprom_read(uint16_t addr)
 	return EEDR;
 }
 
-int8_t eeprom_is_m_num_ok(uint16_t addr)
+int8_t eeprom_is_m_num(uint16_t addr)
 {
 	uint32_t eeprom_magic_nb_read = 0;
 
@@ -56,9 +56,9 @@ int8_t eeprom_safe_read(void *buf, uint16_t addr, uint16_t len)
 {
 	uint8_t *tmp = buf;
 
-	if (!eeprom_is_m_num_ok(addr))
+	if (!eeprom_is_m_num(addr))
 		return -1;
-	addr += M_NUM_LEN;
+	addr += M_NUM_SIZE;
 	for (uint16_t i = 0; i < len; ++i)
 		tmp[i] = eeprom_read(addr + i);
 	return 0;
@@ -69,7 +69,7 @@ int8_t eeprom_safe_write(void *buf, uint16_t addr, uint16_t len)
 	uint8_t *tmp = buf;
 
 	eeprom_write_m_num(addr);
-	addr += M_NUM_LEN;
+	addr += M_NUM_SIZE;
 	for (uint16_t i = 0; i < len; ++i) {
 		if (eeprom_read(addr + i) == tmp[i])
 			continue;

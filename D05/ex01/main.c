@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:54:11 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 21:56:29 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:24:02 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ ISR(INT0_vect) /* sw1 */
 		if (count_nb == COUNT_NB_MAX_VALUE)
 			count_nb = 0;
 
-		eeprom_write(COUNTERS_ADDR + M_NUM_LEN + count_index, count_nb);
+		eeprom_write(COUNTERS_ADDR + M_NUM_SIZE + count_index, count_nb);
 		update_leds(count_nb);
 		uart_print_counters();
 	}
@@ -56,8 +56,8 @@ ISR(PCINT2_vect) /* sw2 */
 		if (count_index == NB_TOTAL_COUNTERS + 1)
 			count_index = 1;
 
-		eeprom_write(COUNTERS_ADDR + M_NUM_LEN, count_index);
-		count_nb = eeprom_read(COUNTERS_ADDR + M_NUM_LEN + count_index);
+		eeprom_write(COUNTERS_ADDR + M_NUM_SIZE, count_index);
+		count_nb = eeprom_read(COUNTERS_ADDR + M_NUM_SIZE + count_index);
 		update_leds(count_nb);
 		uart_print_counters();
 	}
@@ -98,18 +98,18 @@ int main(void)
 	DDRB |= (1 << PB2) | (1 << PB1) | (1 << PB0);
 
 	/* Initializing EEPROM only for first run of program */
-	if (!eeprom_is_m_num_ok(COUNTERS_ADDR, M_NUM)) {
+	if (!eeprom_is_m_num(COUNTERS_ADDR, M_NUM)) {
 		uart_printstr("Initializing EEPROM\r\n");
 		eeprom_write_m_num(COUNTERS_ADDR);
 
 		/* +1 for count_index byte*/
-		eeprom_erase(COUNTERS_ADDR + M_NUM_LEN, NB_TOTAL_COUNTERS + 1);
-		eeprom_write(COUNTERS_ADDR + M_NUM_LEN, count_index);
+		eeprom_memset(COUNTERS_ADDR + M_NUM_SIZE, NB_TOTAL_COUNTERS + 1);
+		eeprom_write(COUNTERS_ADDR + M_NUM_SIZE, count_index);
 	} else {
 		uart_printstr("EEPROM already initialized\r\n");
 
-		count_index = eeprom_read(COUNTERS_ADDR + M_NUM_LEN);
-		count_nb = eeprom_read(COUNTERS_ADDR + M_NUM_LEN + count_index);
+		count_index = eeprom_read(COUNTERS_ADDR + M_NUM_SIZE);
+		count_nb = eeprom_read(COUNTERS_ADDR + M_NUM_SIZE + count_index);
 	}
 
 	uart_print_counters();

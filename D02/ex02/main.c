@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 17:22:15 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/16 20:01:24 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:13:58 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ ISR(INT0_vect)
 		update_led(nb);
 	}
 
-	_delay_ms(20);                 /* Neutralizing bounce effect */
-	if (EIFR & (1 << INTF0))       /* Clearing interrupt flag if another one occured while ISR was executing*/
-		EIFR |= (1 << INTF0);
-
+	_delay_ms(20);        /* Neutralizing bounce effect */
+	EIFR |= (1 << INTF0); /* Clearing interrupt flag one occured while ISR was executing*/
 }
 
 ISR(PCINT2_vect)
@@ -44,9 +42,8 @@ ISR(PCINT2_vect)
 		update_led(nb);
 	}
 
-	_delay_ms(20);                 /* Neutralizing bounce effect */
-	if (PCIFR & (1 << PCIF2))      /* Clearing interrupt flag if another one occured while ISR was executing*/
-		PCIFR |= (1 << PCIF2);
+	_delay_ms(20);         /* Neutralizing bounce effect */
+	PCIFR |= (1 << PCIF2); /* Clearing interrupt flag if another one occured while ISR was executing*/
 }
 
 static void update_led(uint8_t nb)

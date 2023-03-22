@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 20:18:03 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 21:56:29 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:24:02 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ uint8_t eeprom_read(uint16_t addr)
 	return EEDR;
 }
 
-int8_t eeprom_is_m_num_ok(uint16_t addr, uint32_t magic_nb)
+int8_t eeprom_is_m_num(uint16_t addr, uint32_t magic_nb)
 {
 	uint32_t eeprom_magic_nb_read = 0;
 

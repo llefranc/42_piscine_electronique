@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:54:11 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 21:56:29 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:24:02 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int main(void)
 	DDRB |= (1 << PB4) | (1 << PB2) | (1 << PB1) | (1 << PB0);
 
 	/* Initializing EEPROM with our counter only for first run of program */
-	if (!eeprom_is_m_num_ok(M_NUM_ADDR, M_NUM)) {
+	if (!eeprom_is_m_num(M_NUM_ADDR, M_NUM)) {
 		eeprom_write(M_NUM_ADDR, M_NUM_BYTE);
 		eeprom_write(M_NUM_ADDR + 1, M_NUM_BYTE);
 		eeprom_write(M_NUM_ADDR + 2, M_NUM_BYTE);
 		eeprom_write(M_NUM_ADDR + 3, M_NUM_BYTE);
-		eeprom_write(M_NUM_ADDR + M_NUM_LEN, nb);
+		eeprom_write(M_NUM_ADDR + M_NUM_SIZE, nb);
 	} else {
-		nb = eeprom_read(M_NUM_ADDR + M_NUM_LEN);
+		nb = eeprom_read(M_NUM_ADDR + M_NUM_SIZE);
 	}
 
 	update_leds(nb);
@@ -47,7 +47,7 @@ int main(void)
 			is_pressed = 1;
 			_delay_ms(20);
 			nb++;
-			eeprom_write(M_NUM_ADDR + M_NUM_LEN, nb);
+			eeprom_write(M_NUM_ADDR + M_NUM_SIZE, nb);
 			update_leds(nb);
 		} else if (is_pressed && (PIND & (1 << PD2))) {
 			is_pressed = 0;
