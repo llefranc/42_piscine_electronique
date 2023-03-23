@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 20:08:16 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/17 22:41:08 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:29:18 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define UBRRN F_CPU/8/UART_BAUDRATE-1
 #define TIMER1_PRESCALER 1024
 
-#define BUFFER_SIZE 20
+#define BUFFER_SIZE 50
 
 enum e_step {
 	E_USERNAME,
@@ -27,7 +27,7 @@ enum e_step {
 
 static const char *creds[] = {"llefranc", "password"};
 
-void avr_memset(void *ptr, char c, uint16_t len);	
+void avr_memset(void *ptr, char c, uint16_t len);
 int8_t avr_strcmp(const char *s1, const char *s2);
 
 static inline void uart_tx(char c);
@@ -64,13 +64,10 @@ ISR(USART_RX_vect)
 		goto reset_buff;
 	} else if (c == 127) {
 		if (i > 0) {
-			buf[i--] = '\0';
+			buf[--i] = '\0';
 			uart_printstr("\b \b");
 		}
-	} else if (i >= BUFFER_SIZE - 1) {
-		uart_printstr("\r\nPlease enter less than 20 characters\r\n");
-		goto err_reset_login;
-	} else {
+	} else if (i < BUFFER_SIZE - 1) {
 		buf[i++] = c;
 		if (step == E_PASSWD)
 			c = '*';

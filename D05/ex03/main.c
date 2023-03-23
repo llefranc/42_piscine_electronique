@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 19:54:11 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/22 21:12:25 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/23 16:56:05 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,11 @@ int main(void)
 	uart_init(UART_UBRRN, (0 << RXCIE0));
 
 	/*
-	 * To handle a weird behavior of EEPROM. Tests doesn't work without
-	 * this delay, data in EEPROM seems correct the read operations followed
-	 * by a UART transmission to computer outputs weird stuff, like the
-	 * read/write operation were desynchronized. A delay of 1 sec fix this
-	 * problem, it's some kind of black magic apparently
+	 * See https://arduino.stackexchange.com/questions/86403/unos-internal-eeprom-read-returns-incorrect-values-when-it-precedes-write
+	 * to understand the delay
 	 */
-	// _delay_ms(1000);
+	_delay_ms(5000);
 
-	/**
-	 * To trigger the bug :
-	 * 1. Flash the AVR with only the memset instruction (no other write)
-	 * 2. Comment the memset instruction, and do the write/read in a row
-	 * 3. First eeprom_debug_print_range() should ouput an empty EEPROM
-	 *    but EEPROM is already filled with data from the writes.
-	*/
 	// eeprom_memset(0, 0x40);
 	uart_printstr("Starting tests\r\n");
 
