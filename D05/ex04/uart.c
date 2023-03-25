@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:28:42 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/21 16:25:48 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:42:47 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void uart_init(uint16_t ubbrn, uint8_t rxcie0)
 void uart_print_hex_value(uint8_t c)
 {
 	static const char *hex = "0123456789ABCDEF";
-	char buf[3] = { hex[(c >> 4)], hex[(c & 0x0F)]};
 
-	uart_printstr(buf);
+	uart_tx(hex[(c >> 4)]);
+	uart_tx(hex[(c & 0x0F)]);
 }
