@@ -15,12 +15,14 @@
 
 #include <avr/io.h>
 
-#define ADC_POT (0b0000)
-#define ADC_LDR (0b0001)
-#define ADC_NTC (0b0010)
+#define ADC_POT (0b0000)  /* Potentiometer (ADC0) */
+#define ADC_LDR (0b0001)  /* Light sensor (ADC1) */
+#define ADC_NTC (0b0010)  /* Thermistor NTC (ADC2)*/
+#define ADC_TEMP (0b1000) /* Internal temperature sensor (ADC8)*/
 
 /**
- * Init the ADC with a prescaler and 8-bit or 10-bit precision.
+ * Init the ADC with a prescaler and 8-bit or 10-bit precision and with AVCC as
+ * reference.
 */
 static inline void adc_init(uint8_t prescaler, uint8_t adlar_bit)
 {

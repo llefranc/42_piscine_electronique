@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:01:38 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 18:21:33 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/25 18:55:05 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 static inline void adc_init(void)
 {
-	/* Enabling ADC + prescaler of 64 */
+	/* Enabling ADC + setting prescaler */
 	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1);
 
 	/* AVCC with external capacitor at AREF pin + 8 bit precision */
