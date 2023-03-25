@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:01:38 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 19:19:39 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:23:19 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
  * https://gist.github.com/jenschr/1762b4784e1dcf11df146f928b92ca61
  */
 #define ADC_INTERNAL_SENSOR_TEMP_CAL_OFFSET 334
+
+/* 10-bit precision needs a prescaler of 128 */
+#define ADC_PRESC_32 ((1 << ADPS2) | (1 << ADPS0))
+#define ADC_PRESC_64 ((1 << ADPS2) | (1 << ADPS1))
+#define ADC_PRESC_128 ((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0))
 
 /**
  * Init the ADC with a prescaler and 8-bit or 10-bit precision and with AVCC as

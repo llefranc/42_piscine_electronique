@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:21:50 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 18:23:45 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:20:36 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "adc.h"
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 
 #define TIMER1_PRESCALER 256

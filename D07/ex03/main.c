@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:21:50 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 19:16:58 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/25 19:20:24 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,13 @@
 #include "adc.h"
 
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
 
 #define TIMER1_PRESCALER 256
 
-/*
- * Found this calibration value for atmega328p on github :
- * https://gist.github.com/jenschr/1762b4784e1dcf11df146f928b92ca61
- */
-#define TEMP_CAL_OFFSET 334
-
 ISR(TIMER1_COMPA_vect)
 {
-	uint16_t temp = adc_read_10bit() - TEMP_CAL_OFFSET;
+	uint16_t temp = adc_read_10bit() - ADC_INTERNAL_SENSOR_TEMP_CAL_OFFSET;
 
 	uart_print_u_nb(temp);
 	uart_printstr(".C\r\n");
