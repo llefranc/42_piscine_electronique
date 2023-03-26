@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:52:35 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 21:25:27 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/26 21:29:16 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(void)
 {
 	sei();
 	i2c_init();
-	uart_init(UART_UBRRN, 0);
 	i2c_pca_write(I2C_PCA_C0, (1 << I2C_PCA_IO0_D9));
+	start_timer1_ms(1000);
 	while (1);
 }

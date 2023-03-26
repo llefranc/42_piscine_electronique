@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/26 21:14:54 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/26 21:28:05 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ PROGRAMMER	= arduino
 USB 		= /dev/ttyUSB0
 
 NAME		= atmega
-HEADS		= uart.h i2c.h i2c_pca.h
-SRCS		= main.c uart.c i2c_pca.c
+HEADS		= i2c.h i2c_pca.h
+SRCS		= main.c i2c_pca.c
 BINS		= $(SRCS:.c=.bin)
 
 all: hex flash
