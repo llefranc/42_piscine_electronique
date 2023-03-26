@@ -59,11 +59,9 @@ static inline void i2c_write(uint8_t data)
 
 static inline uint8_t i2c_read(uint8_t twea_bit)
 {
-	uint8_t data = TWDR;
-
 	TWCR = (1 << TWINT) | twea_bit | (1 << TWEN);
 	i2c_m_wait_for_op_to_proceed();
-	return data;
+	return TWDR;
 }
 
 static inline void i2c_reset_bus_error(void)

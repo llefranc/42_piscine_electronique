@@ -19,7 +19,7 @@
  * the bits in the byte of data using binary not operator because PCA registers
  * work the opposite way of AVR (0 in PCA output register => pin will be HIGH).
 */
-void i2c_pca_write_byte(uint8_t reg, uint8_t data)
+void i2c_pca_write_reg(uint8_t reg, uint8_t data)
 {
 	i2c_start();
 	i2c_sla_wr(I2C_SLA_PCA, TW_WRITE);

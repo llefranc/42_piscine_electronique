@@ -12,23 +12,41 @@
 
 #include "i2c.h"
 #include "i2c_pca.h"
-#include "timer.h"
+#include "uart.h"
 
 #include <avr/io.h>
-#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <util/twi.h>
 
-ISR(TIMER1_COMPA_vect)
+void update_leds(uint8_t nb)
 {
-	static uint8_t led_d9 = (1 << I2C_PCA_IO0_D9);
-
-	i2c_pca_write_byte(I2C_PCA_O0, led_d9);
-	led_d9 ^= (1 << I2C_PCA_IO0_D9);
+	i2c_pca_write_reg
 }
 
 int main(void)
 {
-	sei();
+	uint8_t nb;
+	uint8_t data;
+	uint8_t is_pressed = 0;
+
+	uart_init(UART_UBRRN, 0);
 	i2c_init();
-	i2c_pca_write_byte(I2C_PCA_C0, (1 << I2C_PCA_IO0_D9));
-	while (1);
+	while (1) {
+		data = i2c_pca_read_reg(I2C_PCA_I0);
+		if (!is_pressed && (~data & (1 << I2C_PCA_IO0_SW5))) {
+			if (++nb == 8)
+				nb = 0;
+			update_leds(nb);
+			is_pressed = 1;
+			_delay_ms(20);
+		}
+		if (is_pressed && (~data && (1 << I2C_PCA_IO0_SW5))) {
+			is_pressed = 0;
+			_delay_ms(20);
+		}
+		// uart_print_hex_value(data);
+		// uart_printstr("\r\n");
+
+		// _delay_ms(1000);
+	}
 }

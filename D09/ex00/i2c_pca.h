@@ -48,6 +48,6 @@
 #define I2C_PCA_IO1_G 6
 #define I2C_PCA_IO1_DPX 7
 
-void i2c_pca_write_byte(uint8_t reg, uint8_t data);
+void i2c_pca_write_reg(uint8_t reg, uint8_t data);
 
 #endif /* I2C_PCA_H */

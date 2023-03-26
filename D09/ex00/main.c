@@ -21,7 +21,7 @@ ISR(TIMER1_COMPA_vect)
 {
 	static uint8_t led_d9 = (1 << I2C_PCA_IO0_D9);
 
-	i2c_pca_write_byte(I2C_PCA_O0, led_d9);
+	i2c_pca_write_reg(I2C_PCA_O0, led_d9);
 	led_d9 ^= (1 << I2C_PCA_IO0_D9);
 }
 
@@ -29,7 +29,7 @@ int main(void)
 {
 	sei();
 	i2c_init();
-	i2c_pca_write_byte(I2C_PCA_C0, (1 << I2C_PCA_IO0_D9));
+	i2c_pca_write_reg(I2C_PCA_C0, (1 << I2C_PCA_IO0_D9));
 	start_timer1_ms(1000);
 	while (1);
 }
