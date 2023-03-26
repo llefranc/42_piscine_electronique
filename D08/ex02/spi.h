@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 16:49:52 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:49:16 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #define PADDING_BITS 0xE0
 
-#define LED_OFF 0
+#define LED_OFF 0xE0000000
 
 /* Levels of brightness */
 #define B_LOW 0x01000000

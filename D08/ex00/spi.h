@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 16:07:09 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:50:11 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,12 @@ static inline void spi_send_led_rgb(uint8_t bright, uint8_t r, uint8_t g,
 static void spi_set_leds(uint32_t led1, uint32_t led2, uint32_t led3)
 {
 	spi_send_led_start();
-	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led1 >> 24), led1 >> 16, led1 >> 8, (uint8_t)led1);
-	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led2 >> 24), led2 >> 16, led2 >> 8, (uint8_t)led2);
-	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led2 >> 24), led3 >> 16, led3 >> 8, (uint8_t)led3);
+	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led1 >> 24), led1 >> 16,
+			 led1 >> 8, (uint8_t)led1);
+	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led2 >> 24), led2 >> 16,
+			 led2 >> 8, (uint8_t)led2);
+	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led3 >> 24), led3 >> 16,
+			 led3 >> 8, (uint8_t)led3);
 	spi_send_led_stop();
 }
 
