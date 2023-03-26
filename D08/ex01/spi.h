@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 16:07:09 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/26 16:38:17 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@
 #define DDR_SPI DDRB
 #define PORT_SPI PORTB
 
-#define PADDING_BITS (0xE0)
+#define PADDING_BITS 0xE0
 
-#define LED_OFF (0)
+#define LED_OFF 0
 
 /* Levels of brightness */
-#define B_LOW (0x01000000)
-#define B_MED (0x08000000)
-#define B_HIGH (0x1F000000)
+#define B_LOW 0x01000000
+#define B_MED 0x08000000
+#define B_HIGH 0x1F000000
 
 /* LED colors */
-#define RED (0xFF0000)
-#define GREEN (0x00FF00)
-#define BLUE (0x0000FF)
-#define YELLOW (0xFFFF00)
-#define CYAN (0x00FFFF)
-#define WHITE (0xFFFFFF)
+#define RED 0xFF0000
+#define GREEN 0x00FF00
+#define BLUE 0x0000FF
+#define YELLOW 0xFFFF00
+#define CYAN 0x00FFFF
+#define MAGENTA 0xFF00FF
+#define WHITE 0xFFFFFF
 
 /**
  * Init the SPI as master, MOSI/SCK/SS pins as outputs.
