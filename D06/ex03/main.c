@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 17:12:46 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/24 19:17:41 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/26 18:46:50 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,21 @@ static inline uint8_t is_color_code_ok(char *buf)
 	return i == BUFFER_SIZE - 1;
 }
 
+static inline uint32_t get_rgb_code(char *buf)
+{
+	uint32_t nb_hex;
+	uint32_t rgb = 0;
+
+	for (uint8_t i = 1; i < BUFFER_SIZE - 1; ++i) {
+		nb_hex = char_to_hex(buf[i]);
+		rgb |= nb_hex << ((BUFFER_SIZE - 1 - i) * SHIFT_WIDTH);
+	}
+	return rgb;
+}
+
 ISR(USART_RX_vect)
 {
 	static char buf[BUFFER_SIZE] = {};
-	uint32_t nb_hex;
 	static uint32_t rgb;
 	static uint8_t i = 0;
 	char c;
@@ -157,6 +168,7 @@ ISR(USART_RX_vect)
 	if (c == '\r') {
 		if (!is_color_code_ok(buf))
 			goto err_parsing;
+		rgb = get_rgb_code(buf);
 		set_rgb((uint8_t)(rgb >> 16), (uint8_t)(rgb >> 8), (uint8_t)rgb);
 		uart_printstr("\r\nRGB LED updated!\r\n");
 		uart_printstr("Enter a hexadecimal color code to modify the "
@@ -170,10 +182,6 @@ ISR(USART_RX_vect)
 	} else if (i < BUFFER_SIZE - 1) {
 		buf[i++] = c;
 		uart_tx(c);
-		if (i != 1 && is_alnum(c)) {
-			nb_hex = char_to_hex(c);
-			rgb |= nb_hex << ((BUFFER_SIZE - 1 - i) * SHIFT_WIDTH);
-		}
 	}
 	return;
 
