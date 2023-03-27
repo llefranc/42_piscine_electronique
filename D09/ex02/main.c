@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   i2c_pca.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 10:19:18 by llefranc         ###   ########.fr       */
+/*   Created: 2023/03/26 20:52:35 by llefranc          #+#    #+#             */
+/*   Updated: 2023/03/27 11:05:49 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "i2c.h"
 #include "i2c_pca.h"
 
+#include <avr/io.h>
+#include <util/delay.h>
 #include <util/twi.h>
 
-/**
- * Write to PCA expander's register a byte of data. Reverse for more simplicity
- * the bits in the byte of data using binary not operator because PCA registers
- * work the opposite way of AVR (0 in PCA output register => pin will be HIGH).
-*/
-void i2c_pca_write_reg(uint8_t reg, uint8_t data)
+int main(void)
 {
-	i2c_start();
-	i2c_sla_wr(I2C_PCA_SLA, TW_WRITE);
-	i2c_write(reg);
-	i2c_write(~data);
-	i2c_stop();
+	i2c_init();
+
+	/* All segments pins in output */
+	i2c_pca_write_reg(I2C_PCA_C0, 0xF0);
+	i2c_pca_write_reg(I2C_PCA_C1, 0xFF);
+
+	i2c_pca_draw_seg_nb(2, (1 << I2C_PCA0_DIG4), 1, 0);
+
+	while (1);
 }

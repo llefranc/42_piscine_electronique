@@ -50,5 +50,7 @@
 
 void i2c_pca_write_reg(uint8_t reg, uint8_t data);
 uint8_t i2c_pca_read_reg(uint8_t reg);
+int8_t i2c_pca_draw_seg_nb(uint8_t nb, uint8_t dig,  uint8_t dx,
+			   uint8_t pcaO0_bits_save);
 
 #endif /* I2C_PCA_H */

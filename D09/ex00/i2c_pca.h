@@ -16,7 +16,7 @@
 #include "i2c.h"
 #include <avr/io.h>
 
-#define I2C_SLA_PCA 0b0100000
+#define I2C_PCA_SLA 0b0100000
 
 /* Command byte */
 #define I2C_PCA_I0 0
