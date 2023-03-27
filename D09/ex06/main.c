@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:21:50 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 14:26:16 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:54:08 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ ISR(TIMER0_COMPA_vect)
 {
 	static uint8_t dx[4] = { 0, 0, 0, 0 };
 
-	i2c_pca_draw_seg_nb(pot_val, dx, 0);
+	i2c_pca_draw_seg_nb(pot_val, dx, 4, 0);
 }
 
 static inline void timer0_5ms_start(void)

@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 14:08:08 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:56:17 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,14 @@ int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx,
 /**
  * Draw a number with several digits on the LED segment display.
  *
- * @pcaO0_bits_save: correspond to the first 4 bits of PCA output 0 register,
+ * @width: The minimum width of the number displayed on segment screen. 0 and 1
+ * 	   will both output a width of 1(ex: 0 with a width of 2 will produce
+ * 	   '00').
+ * @pcaO0_bits_save: Correspond to the first 4 bits of PCA output 0 register,
  * 		     which are not used for the segments.
 */
-int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t pcaO0_bits_save)
+int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t width,
+			   uint8_t pcaO0_bits_save)
 {
 	static uint8_t dig[4] = {
 		(1 << I2C_PCA0_DIG4),
@@ -163,7 +167,7 @@ int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t pcaO0_bits_save)
 		return -1;
 	for (uint8_t i = 0; i < print_nb_dig; ++i)
 		divider *= 10;
-	if (print_nb_dig > 3 || nb / divider == 0) {
+	if (print_nb_dig > 3 || (print_nb_dig >= width && nb / divider == 0)) {
 		print_nb_dig = 0;
 		divider = 1;
 	}
