@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 21:33:50 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 09:55:25 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void i2c_pca_write_reg(uint8_t reg, uint8_t data)
 }
 
 /**
- * Read from PCA expander's register a byte of data.
+ * Read from PCA expander's register a single byte of data.
 */
 uint8_t i2c_pca_read_reg(uint8_t reg)
 {

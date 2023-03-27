@@ -29,24 +29,24 @@
 #define I2C_PCA_C1 7
 
 /* IO pins mapping for register 0 */
-#define I2C_PCA_IO0_SW5 0
-#define I2C_PCA_IO0_D11 1
-#define I2C_PCA_IO0_D10 2
-#define I2C_PCA_IO0_D9 3
-#define I2C_PCA_IO0_DIG1 4
-#define I2C_PCA_IO0_DIG2 5
-#define I2C_PCA_IO0_DIG3 6
-#define I2C_PCA_IO0_DIG4 7
+#define I2C_PCA0_SW5 0
+#define I2C_PCA0_D11 1
+#define I2C_PCA0_D10 2
+#define I2C_PCA0_D9 3
+#define I2C_PCA0_DIG1 4
+#define I2C_PCA0_DIG2 5
+#define I2C_PCA0_DIG3 6
+#define I2C_PCA0_DIG4 7
 
 /* IO pins mapping for register 1 */
-#define I2C_PCA_IO1_A 0
-#define I2C_PCA_IO1_B 1
-#define I2C_PCA_IO1_C 2
-#define I2C_PCA_IO1_D 3
-#define I2C_PCA_IO1_E 4
-#define I2C_PCA_IO1_F 5
-#define I2C_PCA_IO1_G 6
-#define I2C_PCA_IO1_DPX 7
+#define I2C_PCA1_A 0
+#define I2C_PCA1_B 1
+#define I2C_PCA1_C 2
+#define I2C_PCA1_D 3
+#define I2C_PCA1_E 4
+#define I2C_PCA1_F 5
+#define I2C_PCA1_G 6
+#define I2C_PCA1_DPX 7
 
 void i2c_pca_write_reg(uint8_t reg, uint8_t data);
 uint8_t i2c_pca_read_reg(uint8_t reg);

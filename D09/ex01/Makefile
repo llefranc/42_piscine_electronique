@@ -6,7 +6,7 @@
 #    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/26 21:28:05 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/27 09:58:39 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJCOPY		= avr-objcopy
 FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/cu.usbserial-141340
+USB 		= /dev/ttyUSB0
 
 NAME		= atmega
 HEADS		= i2c.h i2c_pca.h uart.h
