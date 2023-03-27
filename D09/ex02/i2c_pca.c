@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 11:07:25 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:08:46 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 #include <util/twi.h>
 
-#define MAX_DIG 4
-#define MAX_NB_DRAWABLE 10
+#define I2C_PCA_MAX_DIG 4
+#define I2C_PCA_MAX_DIGIT_DRAWABLE 9
 
 /**
  * Write to PCA expander's register a byte of data. Reverse for more simplicity
@@ -109,7 +109,10 @@ static inline uint8_t i2c_pca_get_seg_9(void)
 }
 
 /**
- * Draw a number on the LED segment display.
+ * Draw a digit on the LED segment display.
+ *
+ * @pcaO0_bits_save: correspond to the first 4 bits of PCA output 0 register,
+ * 		     which are not used for the segments.
 */
 int8_t i2c_pca_draw_seg_nb(uint8_t nb, uint8_t dig,  uint8_t dx,
 			   uint8_t pcaO0_bits_save)
@@ -128,12 +131,9 @@ int8_t i2c_pca_draw_seg_nb(uint8_t nb, uint8_t dig,  uint8_t dx,
 	};
 	uint8_t segs;
 
-	if (dig < (1 << I2C_PCA0_DIG1) || nb >= MAX_NB_DRAWABLE)
+	if (dig < (1 << I2C_PCA0_DIG1) || nb > I2C_PCA_MAX_DIGIT_DRAWABLE)
 		return -1;
-	/*
-	 * bits_save correspond to the first 4 bits of PCA output 0 register,
-	 * which are not used for the segments
-	 */
+	i2c_pca_write_reg(I2C_PCA_O1, 0xFF);
 	i2c_pca_write_reg(I2C_PCA_O0, pcaO0_bits_save | dig);
 	segs = get_seg[nb]();
 	if (dx)

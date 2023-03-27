@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 14:08:26 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:09:22 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ static inline uint8_t i2c_pca_get_seg_9(void)
  * @pcaO0_bits_save: correspond to the first 4 bits of PCA output 0 register,
  * 		     which are not used for the segments.
 */
-int8_t i2c_pca_draw_seg_nb(uint8_t nb, uint8_t dig,  uint8_t dx,
-			   uint8_t pcaO0_bits_save)
+int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx,
+			    uint8_t pcaO0_bits_save)
 {
 	static uint8_t (*get_seg[])(void) = {
 		&i2c_pca_get_seg_0,
@@ -139,5 +139,34 @@ int8_t i2c_pca_draw_seg_nb(uint8_t nb, uint8_t dig,  uint8_t dx,
 	if (dx)
 		segs &= ~(1 << I2C_PCA1_DPX);
 	i2c_pca_write_reg(I2C_PCA_O1, segs);
+	return 0;
+}
+
+/**
+ * Draw a number with several digits on the LED segment display.
+*/
+int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t pcaO0_bits_save)
+{
+	static uint8_t dig[4] = {
+		(1 << I2C_PCA0_DIG4),
+		(1 << I2C_PCA0_DIG3),
+		(1 << I2C_PCA0_DIG2),
+		(1 << I2C_PCA0_DIG1)
+	};
+	static uint8_t print_nb_dig = 0;
+	uint16_t divider = 1;
+
+	if (nb > I2C_PCA_MAX_VALUE_DRAWABLE)
+		return -1;
+	for (uint8_t i = 0; i < print_nb_dig; ++i)
+		divider *= 10;
+	if (print_nb_dig > 3 || nb / divider == 0) {
+		print_nb_dig = 0;
+		divider = 1;
+	}
+	nb /= divider;
+	i2c_pca_draw_seg_dig(nb % 10, dig[print_nb_dig], dx[print_nb_dig],
+			     pcaO0_bits_save);
+	++print_nb_dig;
 	return 0;
 }
