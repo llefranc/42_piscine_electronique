@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 16:49:16 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:44:51 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static inline void spi_send_led_rgb(uint8_t bright, uint8_t r, uint8_t g,
 /**
  * Set the 3 LEDs through SPI.
 */
-static void spi_set_leds(uint32_t led1, uint32_t led2, uint32_t led3)
+static inline void spi_set_leds(uint32_t led1, uint32_t led2, uint32_t led3)
 {
 	spi_send_led_start();
 	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led1 >> 24), led1 >> 16,
