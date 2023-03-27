@@ -6,7 +6,7 @@
 /*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 20:52:35 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 11:24:32 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:13:57 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int main(void)
 	i2c_pca_write_reg(I2C_PCA_C0, 0xF0);
 	i2c_pca_write_reg(I2C_PCA_C1, 0xFF);
 
-	start_timer1_ms(10);
+	timer1_ms_start(10);
 	while (1);
 }
