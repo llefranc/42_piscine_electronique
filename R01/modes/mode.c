@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:27 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 18:37:59 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 20:43:01 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ static void (*g_fptr_mode_init[LAST_MODE_NB + 1])(void) = {
 
 static void (*g_fptr_mode_clear[LAST_MODE_NB + 1])(void) = {
 	&mode_0_start_seq_clear,
-	&mode_1_adc_pot_clear,
-	&mode_2_adc_ldr_clear,
-	&mode_3_adc_ntc_clear,
-	&mode_4_adc_temp_clear,
+	&mode_x_adc_xxx_clear,
+	&mode_x_adc_xxx_clear,
+	&mode_x_adc_xxx_clear,
+	&mode_x_adc_xxx_clear,
 	&mode_5_rgb_clear,
 	&mode_6_aht_temp_c_clear,
 	&mode_7_aht_temp_f_clear,
@@ -52,10 +52,10 @@ static void (*g_fptr_mode_clear[LAST_MODE_NB + 1])(void) = {
 };
 
 /**
- * Switch mode by stopping the previous one and starting another and updating 
+ * Switch mode by stopping the previous one and starting another and updating
  * the LEDs accordingly.
- * @dir: If negative/positive number, stop actual mode and start another mode by 
- *       going backward/forward in the modes number. If dir is 0, just start the 
+ * @dir: If negative/positive number, stop actual mode and start another mode by
+ *       going backward/forward in the modes number. If dir is 0, just start the
  *       mode referenced by global variable g_mode (usefull for first mode to
  *       launch at system start).
 */
@@ -89,7 +89,7 @@ void mode_0_start_seq_init(void)
 	UART_DEBUG("mode_0_start_seq_init\r\n");
 	TIMSK1 |= (1 << OCIE1A);
 	OCR1A = F_CPU / TIMER_PRESCALER_1024 * 3; /* match every 3sec */
-	TCCR1B |= (1 < WGM12) | (1 << CS12) | (1 << CS10);
+	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
 	TIMSK0 |= (1 << OCIE0A);
 	OCR0A = F_CPU / TIMER_PRESCALER_1024 / 200; /* match every 5ms*/

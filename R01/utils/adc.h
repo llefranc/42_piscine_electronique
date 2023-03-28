@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adc.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 18:01:38 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 19:23:19 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:57:42 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ static inline uint16_t adc_read_10bit(void)
 	ADCSRA |= (1 << ADSC);
 	while (ADCSRA & (1 << ADSC));
 	return ADC;
+}
+
+static inline void adc_clear(void)
+{
+	ADCSRA = 0;
+	ADMUX = 0;
 }
 
 #endif /* ADC_H */
