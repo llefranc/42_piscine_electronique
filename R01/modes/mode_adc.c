@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:20:43 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/28 21:02:40 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 21:03:26 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void mode_2_adc_ldr_init(void)
 	TCCR0B = (1 << CS02) | (1 << CS00);
 }
 
-
+/**
+ * Init the ADC to ntc, timer1 to match every 20ms in order to read ADC ntc
+ * value, and timer0 to match every 2,5ms to display ADC ntc value on segments.
+*/
 void mode_3_adc_ntc_init(void)
 {
 	UART_DEBUG("mode_3_adc_ntc_init\r\n");
