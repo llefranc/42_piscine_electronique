@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:33:11 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 13:02:09 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 16:50:07 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@
 #define LED5_R PD5
 #define LED5_G PD6
 #define LED5_B PD3
+
+#define SW1 PD2
+#define SW2 PD4
 
 #endif /* IO_H */

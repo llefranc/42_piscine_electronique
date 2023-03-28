@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:27 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 13:48:50 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 18:37:59 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void mode_0_start_seq_exec_timer0(void)
 {
 	static uint8_t dx[4] = {};
 
-	i2c_pca_draw_seg_nb(8888, dx, 4, 0);
+	i2c_pca_draw_seg_nb(8888, dx, 4);
 }
 
 void mode_0_start_seq_clear(void)
@@ -111,7 +111,7 @@ void mode_0_start_seq_clear(void)
 	UART_DEBUG("mode_0_start_seq_clear\r\n");
 	timer0_clear();
 	timer1_clear();
-	i2c_pca_reset_seg(0);
+	i2c_pca_reset_seg();
 	PORTB &= ~((1 << LED4) | (1 << LED3) | (1 << LED2) |
 			(1 << LED1));
 	_delay_ms(1000);

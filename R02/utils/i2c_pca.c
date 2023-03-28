@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i2c_pca.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 16:21:06 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:32:27 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 
 #define I2C_PCA_MAX_DIG 4
 #define I2C_PCA_MAX_DIGIT_DRAWABLE 9
+
+#define I2C_PCAO0_MASK_DIGS 0x0F
+
+/* 
+ * Copy of PCA output0 register to avoid useless read when updating certain bits 
+ * of this register, in order to save the state of the other bits 
+ */
+static uint8_t i2c_pca_regO0_data;
 
 /**
  * Write to PCA expander's register a byte of data. Reverse for more simplicity
@@ -29,6 +37,19 @@ void i2c_pca_write_reg(uint8_t reg, uint8_t data)
 	i2c_write(reg);
 	i2c_write(~data);
 	i2c_stop();
+}
+
+/**
+ * Write to PCA expander's register output0 one or several bits using a mask. 
+ * This function use a static buffer which is the copy of PCAO0 register to 
+ * avoid an useless read in order to save the other bits already set in PCAO0 
+ * before writing. 
+*/
+void i2c_pca_write_regO0(uint8_t mask, uint8_t data)
+{
+	i2c_pca_regO0_data &= mask;
+	i2c_pca_regO0_data |= data;
+	i2c_pca_write_reg(I2C_PCA_O0, i2c_pca_regO0_data);
 }
 
 /**
@@ -110,12 +131,8 @@ static inline uint8_t i2c_pca_get_seg_9(void)
 
 /**
  * Draw a digit on the LED segment display.
- *
- * @pcaO0_bits_save: correspond to the first 4 bits of PCA output 0 register,
- * 		     which are not used for the segments.
 */
-int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx,
-			    uint8_t pcaO0_bits_save)
+int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx)
 {
 	static uint8_t (*get_seg[])(void) = {
 		&i2c_pca_get_seg_0,
@@ -134,7 +151,9 @@ int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx,
 	if (dig < (1 << I2C_PCA0_DIG1) || nb > I2C_PCA_MAX_DIGIT_DRAWABLE)
 		return -1;
 	i2c_pca_write_reg(I2C_PCA_O1, 0xFF);
-	i2c_pca_write_reg(I2C_PCA_O0, pcaO0_bits_save | dig);
+	i2c_pca_regO0_data &= I2C_PCAO0_MASK_DIGS;
+	i2c_pca_regO0_data |= dig;
+	i2c_pca_write_reg(I2C_PCA_O0, i2c_pca_regO0_data);
 	segs = get_seg[nb]();
 	if (dx)
 		segs &= ~(1 << I2C_PCA1_DPX);
@@ -148,11 +167,8 @@ int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx,
  * @width: The minimum width of the number displayed on segment screen. 0 and 1
  * 	   will both output a width of 1(ex: 0 with a width of 2 will produce
  * 	   '00').
- * @pcaO0_bits_save: Correspond to the first 4 bits of PCA output 0 register,
- * 		     which are not used for the segments.
 */
-int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t width,
-			   uint8_t pcaO0_bits_save)
+int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t width)
 {
 	static uint8_t dig[4] = {
 		(1 << I2C_PCA0_DIG4),
@@ -172,14 +188,14 @@ int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t width,
 		divider = 1;
 	}
 	nb /= divider;
-	i2c_pca_draw_seg_dig(nb % 10, dig[print_nb_dig], dx[print_nb_dig],
-			     pcaO0_bits_save);
+	i2c_pca_draw_seg_dig(nb % 10, dig[print_nb_dig], dx[print_nb_dig]);
 	++print_nb_dig;
 	return 0;
 }
 
-void i2c_pca_reset_seg(uint8_t pcaO0_bits_save)
+void i2c_pca_reset_seg(void)
 {
-	i2c_pca_write_reg(I2C_PCA_O0, pcaO0_bits_save | 0xF0);
+	i2c_pca_regO0_data &= I2C_PCAO0_MASK_DIGS;
+	i2c_pca_write_reg(I2C_PCA_O0, i2c_pca_regO0_data);
 	i2c_pca_write_reg(I2C_PCA_O1, 0xFF);
 }

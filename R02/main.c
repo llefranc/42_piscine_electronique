@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 13:52:04 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 19:09:03 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+static inline void button_init(void);
+
 ISR(TIMER1_COMPA_vect)
 {
 	switch (g_mode) {
 	case E_MODE_0_START_SEQ:
 		switch_mode(MODE_START_NEXT);
+		button_init();
 		break;
 	default:
 		uart_printstr("Mode error\r\n");
@@ -43,32 +46,72 @@ ISR(TIMER0_COMPA_vect)
 	}
 }
 
-/* SW1, incrementing mode */
 ISR(INT0_vect)
 {
-	static uint8_t is_pressed = 0;
+	static int8_t is_pressed = -1;
 
-	is_pressed = !is_pressed;
-	if (is_pressed)
-		switch_mode(MODE_START_NEXT);
+	UART_DEBUG("INT0_vect\r\n");
+	/* Check pin state after start seq case button is already pressed */
+	if (is_pressed == -1)
+		is_pressed = !(PIND & (1 << SW1));
+	else
+		is_pressed = !is_pressed;
 		
+	if (is_pressed) {
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D9), (1 << I2C_PCA0_D9));
+		switch_mode(MODE_START_NEXT);
+	} else {
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D9), 0);		
+	}		
 	/* Neutralizing bounce effect */
-	_delay_ms(20);
+	_delay_ms(10);
 	EIFR |= (1 << INTF0);
 }
 
 /* SW2, decrementing mode */
 ISR(PCINT2_vect)
 {
-	static uint8_t is_pressed = 0;
+	static int8_t is_pressed = -1;
 
-	is_pressed = !is_pressed;
-	if (is_pressed)
-		switch_mode(MODE_START_PREV);
+	UART_DEBUG("PCINT2_vect\r\n");
+	/* Check pin state after start seq case button is already pressed */
+	if (is_pressed == -1)
+		is_pressed = !(PIND & (1 << SW2));
+	else
+		is_pressed = !is_pressed;
 		
+	if (is_pressed) {
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D10), (1 << I2C_PCA0_D10));
+		switch_mode(MODE_START_PREV);
+	} else {
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D10), 0);		
+	}
 	/* Neutralizing bounce effect */
-	_delay_ms(20);
+	_delay_ms(10);
 	PCIFR |= (1 << PCIF2);
+}
+
+/* Checking SW3 input from expander through i2c every 10 ms */
+ISR(TIMER2_COMPA_vect)
+{
+	uint8_t i2c_pca_i0_data;
+	static int8_t is_pressed = -1;
+	
+	i2c_pca_i0_data = i2c_pca_read_reg(I2C_PCA_I0);
+	
+	/* Check pin state after start seq case button is already pressed */
+	if (is_pressed == -1 && ~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))
+		return;
+	else if (is_pressed == -1)
+		is_pressed = 0; 
+		
+	if ((!is_pressed && (~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))) ||
+	    (is_pressed && (!(~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))))) {
+		is_pressed = !is_pressed;
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D11), 
+				    (is_pressed << I2C_PCA0_D11));
+		_delay_ms(10);
+	}
 }
 
 /**
@@ -86,15 +129,23 @@ static inline void io_init(void)
 }
 
 /**
- * Enable INT0 interrupt for SW1 and PCIN2 interrupt for SW2.
+ * Enable INT0 interrupt for SW1, PCINT2 interrupt for SW2 and start
+ * timer2 for check SW3 status through I2C every 10 ms.
 */
 static inline void button_init(void)
 {
-	EIMSK |= (1 << INT0);  
 	EICRA |= (1 << ISC00);
+	EIFR |= (1 << INT0);
+	EIMSK |= (1 << INT0);
 	
-	PCICR |= (1 << PCIE2);    
+	PCIFR |= (1 << PCIF2);
 	PCMSK2 |= (1 << PCINT20);
+	PCICR |= (1 << PCIE2);
+	
+	OCR2A = F_CPU / TIMER_PRESCALER_1024 / 100; /* every 10ms */
+	TIMSK2 |= (1 << OCIE2A);
+	TCCR2A |= (1 << WGM21);
+	TCCR2B |= (1 << CS22) | (1 << CS20);
 }
 
 int main(void)
@@ -105,10 +156,5 @@ int main(void)
 	io_init();
 	switch_mode(MODE_START_ACTUAL);
 
-	while (g_mode == E_MODE_0_START_SEQ);
-	button_init();
-
-	while (1) {
-
-	}
+	while (1);
 }
