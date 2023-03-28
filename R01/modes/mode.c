@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:27 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 20:43:01 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 21:31:55 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ volatile int8_t g_mode = E_MODE_0_START_SEQ;
 
 static void (*g_fptr_mode_init[LAST_MODE_NB + 1])(void) = {
 	&mode_0_start_seq_init,
-	&mode_1_adc_pot_init,
-	&mode_2_adc_ldr_init,
-	&mode_3_adc_ntc_init,
-	&mode_4_adc_temp_init,
+	&mode_x_adc_xxx_init,
+	&mode_x_adc_xxx_init,
+	&mode_x_adc_xxx_init,
+	&mode_x_adc_xxx_init,
 	&mode_5_rgb_init,
 	&mode_6_aht_temp_c_init,
 	&mode_7_aht_temp_f_init,
@@ -88,11 +88,11 @@ void mode_0_start_seq_init(void)
 {
 	UART_DEBUG("mode_0_start_seq_init\r\n");
 	TIMSK1 |= (1 << OCIE1A);
-	OCR1A = F_CPU / TIMER_PRESCALER_1024 * 3; /* match every 3sec */
+	OCR1A = F_CPU / TIMER_PRESCALER_1024 * 3; /* Every 3sec */
 	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
 	TIMSK0 |= (1 << OCIE0A);
-	OCR0A = F_CPU / TIMER_PRESCALER_1024 / 200; /* match every 5ms*/
+	OCR0A = F_CPU / TIMER_PRESCALER_1024 / 200; /* Every 5ms*/
 	TCCR0A |= (1 << WGM01);
 	TCCR0B |= (1 << CS02) | (1 << CS00);
 
