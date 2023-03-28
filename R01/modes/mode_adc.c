@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:20:43 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/28 21:03:26 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 21:14:14 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void mode_1_adc_pot_init(void)
 	adc_val = 0;
 
 	TIMSK1 |= (1 << OCIE1A);
-	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 10; /* match every 20ms */
+	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 10; /* match every 100ms */
 	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
 	TIMSK0 = (1 << OCIE0A);
@@ -54,7 +54,7 @@ void mode_2_adc_ldr_init(void)
 	adc_val = 0;
 
 	TIMSK1 |= (1 << OCIE1A);
-	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 10; /* match every 20ms */
+	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 10; /* match every 100ms */
 	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
 	TIMSK0 = (1 << OCIE0A);
@@ -75,7 +75,7 @@ void mode_3_adc_ntc_init(void)
 	adc_val = 0;
 
 	TIMSK1 |= (1 << OCIE1A);
-	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 50; /* match every 20ms */
+	OCR1A = F_CPU / TIMER_PRESCALER_1024 / 10; /* match every 100ms */
 	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
 	TIMSK0 = (1 << OCIE0A);
@@ -84,9 +84,43 @@ void mode_3_adc_ntc_init(void)
 	TCCR0B = (1 << CS02) | (1 << CS00);
 }
 
+/**
+ * Init the ADC to the internal temperature sensor, timer1 to match every 20ms
+ * in order to read ADC ntc value, and timer0 to match every 2,5ms to display
+ * ADC ntc value on segments.
+*/
 void mode_4_adc_temp_init(void)
 {
 	UART_DEBUG("mode_4_adc_temp_init\r\n");
+	ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+
+	/* Internal 1.1V voltage reference needed for internal temp sensor */
+	ADMUX |= (1 << REFS1) | (1 << REFS0);
+	adc_mux_select(ADC_TEMP);
+	adc_val = 0;
+
+	TIMSK1 |= (1 << OCIE1A);
+	OCR1A = F_CPU / TIMER_PRESCALER_1024; /* match every 100ms */
+	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
+
+	TIMSK0 = (1 << OCIE0A);
+	OCR0A = F_CPU / TIMER_PRESCALER_1024 / 400; /* match every 2,5ms */
+	TCCR0A = (1 << WGM01);
+	TCCR0B = (1 << CS02) | (1 << CS00);
+}
+
+/**
+ * Read the value of ADC internal temperature sensor in 10bits mode and
+ * calibrate it.
+*/
+void mode_4_adc_temp_exec_timer1(void)
+{
+	int16_t tmp = adc_read_10bit() - ADC_INTERNAL_SENSOR_TEMP_CAL_OFFSET;
+
+	if (tmp < 0)
+		tmp = 0;
+	adc_val = tmp;
+
 }
 
 /**

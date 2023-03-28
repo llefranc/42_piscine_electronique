@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 21:04:21 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 21:09:41 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ ISR(TIMER0_COMPA_vect)
 	case E_MODE_1_ADC_POT:
 	case E_MODE_2_ADC_LDR:
 	case E_MODE_3_ADC_NTC:
+	case E_MODE_4_ADC_TEMP:
 		mode_x_adc_xxx_exec_timer0();
 		break;
 	default:
@@ -54,6 +55,9 @@ ISR(TIMER1_COMPA_vect)
 	case E_MODE_2_ADC_LDR:
 	case E_MODE_3_ADC_NTC:
 		mode_x_adc_xxx_exec_timer1();
+		break;
+	case E_MODE_4_ADC_TEMP:
+		mode_4_adc_temp_exec_timer1();
 		break;
 	default:
 		UART_DEBUG("TIMER1_COMPA_vect error\r\n");
