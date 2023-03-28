@@ -22,6 +22,8 @@
 
 #define I2C_SLA_ATH20 0x38
 
+uint8_t g_is_i2c_com_ongoing;
+
 static inline void i2c_init()
 {
 	/* Enabling TWI and interrupt at each bus event */

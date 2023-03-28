@@ -22,22 +22,4 @@
 #define LED5_G PD6
 #define LED5_B PD3
 
-enum e_mode {
-	E_MODE_INIT,
-	E_MODE_1,
-	E_MODE_2,
-	E_MODE_3,
-	E_MODE_4,
-	E_MODE_5,
-	E_MODE_6,
-	E_MODE_7,
-	E_MODE_8,
-	E_MODE_9,
-	E_MODE_10,
-	E_MODE_11,
-};
-
-#define FIRST_MODE_NB E_MODE_1
-#define LAST_MODE_NB E_MODE_11
-
 #endif /* DEFINE_H */
