@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 20:36:15 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 21:00:54 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@
 
 static inline void button_init(void);
 
+ISR(TIMER0_COMPA_vect)
+{
+	switch (g_mode) {
+	case E_MODE_0_START_SEQ:
+		mode_0_start_seq_exec_timer0();
+		break;
+	case E_MODE_1_ADC_POT:
+	case E_MODE_2_ADC_LDR:
+		mode_x_adc_xxx_exec_timer0();
+		break;
+	default:
+		UART_DEBUG("TIMER0_COMPA_vect error\r\n");
+	}
+}
+
 ISR(TIMER1_COMPA_vect)
 {
 	UART_DEBUG("TIMER1_COMPA_vect\r\n");
@@ -35,24 +50,11 @@ ISR(TIMER1_COMPA_vect)
 		button_init();
 		break;
 	case E_MODE_1_ADC_POT:
-		mode_1_adc_pot_exec_timer1();
+	case E_MODE_2_ADC_LDR:
+		mode_x_adc_xxx_exec_timer1();
 		break;
 	default:
 		UART_DEBUG("TIMER1_COMPA_vect error\r\n");
-	}
-}
-
-ISR(TIMER0_COMPA_vect)
-{
-	switch (g_mode) {
-	case E_MODE_0_START_SEQ:
-		mode_0_start_seq_exec_timer0();
-		break;
-	case E_MODE_1_ADC_POT:
-		mode_1_adc_pot_exec_timer0();
-		break;
-	default:
-		UART_DEBUG("TIMER0_COMPA_vect error\r\n");
 	}
 }
 
