@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   mode_rgb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 17:33:11 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 17:57:54 by llefranc         ###   ########.fr       */
+/*   Created: 2023/03/28 12:26:08 by lucaslefran       #+#    #+#             */
+/*   Updated: 2023/03/28 13:49:25 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-#define DEFINE_H
+#include "mode_rgb.h"
 
-#define LED1 PB0
-#define LED2 PB1
-#define LED3 PB2
-#define LED4 PB4
+#include "../utils/uart.h"
 
-#define LED5_R PD5
-#define LED5_G PD6
-#define LED5_B PD3
+void mode_5_rgb_init(void)
+{
+	UART_DEBUG("mode_5_rgb_init\r\n");
+}
 
-#endif /* DEFINE_H */
+void mode_5_rgb_clear(void)
+{
+	UART_DEBUG("mode_5_rgb_clear\r\n");
+}

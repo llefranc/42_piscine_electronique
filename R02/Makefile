@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
+#    By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/27 17:55:55 by llefranc         ###   ########.fr        #
+#    Updated: 2023/03/28 13:48:29 by lucaslefran      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ UART_BAUDRATE	= 115200
 
 CC		= avr-gcc
 OBJCOPY		= avr-objcopy
-FLAGS		= -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)
 # arduino bootloader
 PROGRAMMER	= arduino
 USB 		= /dev/cu.usbserial-141320
@@ -27,14 +26,18 @@ SRCS_MA		= main.c
 BINS_MA		= $(SRCS_MA:.c=.bin)
 
 PATH_MO		= modes/
-SRCS_MO		= mode.c
+SRCS_MO		= mode.c mode_adc.c mode_aht.c mode_date.c mode_rgb.c
 BINS_MO		= $(SRCS_MO:.c=.bin)
 
 PATH_UT		= utils/
 SRCS_UT		= i2c_pca.c uart.c timer.c
 BINS_UT		= $(SRCS_UT:.c=.bin)
 
-all: hex flash
+all: FLAGS = -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)
+all: clean hex flash
+
+debug: FLAGS = -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DDEBUG -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)
+debug: clean hex flash
 
 # Genere les bin files puis le hex files au format intel
 hex: $(SRCS_MA) $(addprefix $(PATH_MO), $(BINS_MO)) $(addprefix $(PATH_UT), $(BINS_UT))

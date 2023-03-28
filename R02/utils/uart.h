@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   uart.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:28:54 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/25 19:08:23 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:48:21 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 #include <avr/io.h>
 
 #define UART_UBRRN F_CPU/8/UART_BAUDRATE-1
+
+#ifdef DEBUG
+#define UART_DEBUG(x) uart_printstr(x)
+#else
+#define UART_DEBUG(x) 
+#endif
 
 void uart_init(uint16_t ubbrn, uint8_t rxcie0);
 void uart_print_hex_value(uint8_t c);
