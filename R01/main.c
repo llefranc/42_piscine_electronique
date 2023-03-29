@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 13:24:06 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 13:28:08 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ ISR(TIMER0_COMPA_vect)
 	case E_MODE_7_AHT_TEMPF:
 		mode_x_aht_xxx_exec_timer0('f');
 		break;
+	case E_MODE_8_AHT_HUMI:
+		mode_x_aht_xxx_exec_timer0('p');
+		break;
 	default:
 		UART_DEBUG("TIMER0_COMPA_vect error\r\n");
 	}
@@ -76,6 +79,9 @@ ISR(TIMER1_COMPA_vect)
 		break;
 	case E_MODE_7_AHT_TEMPF:
 		mode_7_aht_temp_f_exec_timer1();
+		break;
+	case E_MODE_8_AHT_HUMI:
+		mode_8_aht_humi_exec_timer1();
 		break;
 	default:
 		UART_DEBUG("TIMER1_COMPA_vect error\r\n");
