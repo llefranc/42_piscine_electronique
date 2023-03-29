@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:29:09 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 17:59:31 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 18:03:38 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,23 @@ void mode_9_date_time_timer0(void)
 		i2c_pca_draw_seg_dig(actual_date.min / 10, digs[i], dx[i]);
 	else
 		i2c_pca_draw_seg_dig(actual_date.min % 10, digs[i], dx[i]);
+	if (++i >= I2C_PCA_MAX_DIG)
+		i = 0;
+}
+
+void mode_10_date_day_timer0(void)
+{
+	static uint8_t dx[4] = { 0, 0, 0, 1 };
+	static uint8_t i = 0;
+
+	if (i == 0)
+		i2c_pca_draw_seg_dig(actual_date.day / 10, digs[i], dx[i]);
+	else if (i == 1)
+		i2c_pca_draw_seg_dig(actual_date.day % 10, digs[i], dx[i]);
+	else if (i == 2)
+		i2c_pca_draw_seg_dig(actual_date.month / 10, digs[i], dx[i]);
+	else
+		i2c_pca_draw_seg_dig(actual_date.month % 10, digs[i], dx[i]);
 	if (++i >= I2C_PCA_MAX_DIG)
 		i = 0;
 }
