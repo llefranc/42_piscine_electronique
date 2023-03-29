@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mode_date.h                                        :+:      :+:    :+:   */
+/*   avr_string.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 12:29:37 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 15:55:41 by lucaslefran      ###   ########.fr       */
+/*   Created: 2023/03/29 15:33:01 by lucaslefran       #+#    #+#             */
+/*   Updated: 2023/03/29 17:33:49 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MODE_DATE_H
-#define MODE_DATE_H
+#ifndef AVR_STRING_H
+#define AVR_STRING_H
 
 #include <avr/io.h>
 
-int8_t mode_date_update(char *buf);
-void mode_9_date_hour_init(void);
-void mode_9_date_hour_clear(void);
-void mode_10_date_day_init(void);
-void mode_10_date_day_clear(void);
-void mode_11_date_year_init(void);
-void mode_11_date_year_clear(void);
+static inline uint8_t avr_isnum(char c)
+{
+	return (c >= '0' && c <= '9');
+}
 
-#endif /* MODE_DATE_H */
+int8_t avr_strcmp(const char *s1, const char *s2);
+void avr_memset(void *ptr, char c, uint16_t len);
+int16_t avr_atoui(char *buf, uint8_t n);
+
+#endif /* AVR_STRING_H */

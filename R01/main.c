@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 13:28:08 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 17:37:53 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@
 #include "utils/spi.h"
 #include "utils/adc.h"
 #include "utils/timer.h"
+#include "utils/avr_string.h"
 #include "modes/mode.h"
+#include "modes/mode_date.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+
+#define DATE_BUFFER_SIZE 25
 
 static inline void button_init(void);
 
@@ -88,6 +92,29 @@ ISR(TIMER1_COMPA_vect)
 	}
 }
 
+/* Checking SW3 input from expander through i2c every 10 ms */
+ISR(TIMER2_COMPA_vect)
+{
+	uint8_t i2c_pca_i0_data;
+	static int8_t is_pressed = -1;
+
+	i2c_pca_i0_data = i2c_pca_read_reg(I2C_PCA_I0);
+
+	/* Check pin state after start seq case button is already pressed */
+	if (is_pressed == -1 && ~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))
+		return;
+	else if (is_pressed == -1)
+		is_pressed = 0;
+
+	if ((!is_pressed && (~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))) ||
+	    (is_pressed && (!(~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))))) {
+		is_pressed = !is_pressed;
+		i2c_pca_write_regO0(~(1 << I2C_PCA0_D11),
+				    (is_pressed << I2C_PCA0_D11));
+		_delay_ms(10);
+	}
+}
+
 ISR(INT0_vect)
 {
 	static int8_t is_pressed = -1;
@@ -133,27 +160,39 @@ ISR(PCINT2_vect)
 	PCIFR |= (1 << PCIF2);
 }
 
-/* Checking SW3 input from expander through i2c every 10 ms */
-ISR(TIMER2_COMPA_vect)
+/* Update date through UART */
+ISR(USART_RX_vect)
 {
-	uint8_t i2c_pca_i0_data;
-	static int8_t is_pressed = -1;
+	char c;
+	static uint8_t i = 0;
+	static char buf[DATE_BUFFER_SIZE] = {};
 
-	i2c_pca_i0_data = i2c_pca_read_reg(I2C_PCA_I0);
-
-	/* Check pin state after start seq case button is already pressed */
-	if (is_pressed == -1 && ~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))
-		return;
-	else if (is_pressed == -1)
-		is_pressed = 0;
-
-	if ((!is_pressed && (~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))) ||
-	    (is_pressed && (!(~i2c_pca_i0_data & (1 << I2C_PCA0_SW5))))) {
-		is_pressed = !is_pressed;
-		i2c_pca_write_regO0(~(1 << I2C_PCA0_D11),
-				    (is_pressed << I2C_PCA0_D11));
-		_delay_ms(10);
+	c = uart_rx();
+	if (c == '\r') {
+		if (mode_date_update(buf) != -1)
+			uart_printstr("\r\nDate updated!");
+		else
+			goto err_parsing;
+		uart_printstr("\r\nTo update the date, enter a new one with the"
+			      " following format \"DD/MM/YYYY HH:MM:SS\":\r\n");
+		goto reset_buf;
+	} else if (c == 127) {
+		if (i > 0) {
+			buf[--i] = '\0';
+			uart_printstr("\b \b");
+		}
+	} else if (i < DATE_BUFFER_SIZE - 1) {
+		buf[i++] = c;
+		uart_tx(c);
 	}
+	return;
+
+err_parsing:
+	uart_printstr("\r\nError: please respect the date format \"DD/MM/YYYY "
+		      "HH:MM:SS\"\r\n");
+reset_buf:
+	i = 0;
+	avr_memset(buf, 0, sizeof(buf));
 }
 
 /**
@@ -193,10 +232,11 @@ static inline void button_init(void)
 int main(void)
 {
 	sei();
-	uart_init(UART_UBRRN, 0);
+	uart_init(UART_UBRRN, (1 << RXCIE0));
 	i2c_init();
 	io_init();
 	switch_mode(MODE_START_ACTUAL);
-
+	uart_printstr("\r\nTo update the date, enter a new one with the"
+		      " following format \"DD/MM/YYYY HH:MM:SS\":\r\n");
 	while (1);
 }
