@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 13:01:53 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 13:25:33 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ static inline uint8_t i2c_pca_get_seg_c(void)
 
 static inline uint8_t i2c_pca_get_seg_f(void)
 {
-	return ~((1 << I2C_PCA1_A) | (1 << I2C_PCA1_E) | (1 << I2C_PCA1_F));
+	return ~((1 << I2C_PCA1_A) | (1 << I2C_PCA1_E) | (1 << I2C_PCA1_F) |
+		 (1 << I2C_PCA1_G));
 }
 
 static inline uint8_t i2c_pca_get_seg_p(void)

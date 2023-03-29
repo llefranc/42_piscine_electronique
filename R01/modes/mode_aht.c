@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:27:23 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 13:15:23 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 13:24:10 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ void mode_6_aht_temp_c_exec_timer1(void)
 	i2c_aht_read_measurement();
 	wait_first_measurement = 0;
 	aht_val = (uint16_t)(i2c_aht_calc_temp());
+	i2c_aht_start_measurement();
+}
+
+void mode_7_aht_temp_f_exec_timer1(void)
+{
+	i2c_aht_read_measurement();
+	wait_first_measurement = 0;
+	aht_val = (uint16_t)(i2c_aht_calc_temp() * 1.8 + 32.0); /* Fahrenheit */
 	i2c_aht_start_measurement();
 }
 
