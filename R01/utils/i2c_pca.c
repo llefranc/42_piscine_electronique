@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 18:32:27 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/28 22:00:38 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 #include <util/twi.h>
 
-#define I2C_PCA_MAX_DIG 4
 #define I2C_PCA_MAX_DIGIT_DRAWABLE 9
 
 #define I2C_PCAO0_MASK_DIGS 0x0F
 
-/* 
- * Copy of PCA output0 register to avoid useless read when updating certain bits 
- * of this register, in order to save the state of the other bits 
+/*
+ * Copy of PCA output0 register to avoid useless read when updating certain bits
+ * of this register, in order to save the state of the other bits
  */
 static uint8_t i2c_pca_regO0_data;
 
@@ -40,10 +39,10 @@ void i2c_pca_write_reg(uint8_t reg, uint8_t data)
 }
 
 /**
- * Write to PCA expander's register output0 one or several bits using a mask. 
- * This function use a static buffer which is the copy of PCAO0 register to 
- * avoid an useless read in order to save the other bits already set in PCAO0 
- * before writing. 
+ * Write to PCA expander's register output0 one or several bits using a mask.
+ * This function use a static buffer which is the copy of PCAO0 register to
+ * avoid an useless read in order to save the other bits already set in PCAO0
+ * before writing.
 */
 void i2c_pca_write_regO0(uint8_t mask, uint8_t data)
 {
@@ -130,9 +129,24 @@ static inline uint8_t i2c_pca_get_seg_9(void)
 }
 
 /**
+ * Draw a line on the LED segment display (ex: -);
+*/
+int8_t i2c_pca_draw_seg_line(uint8_t dig)
+{
+	if (dig < (1 << I2C_PCA0_DIG1))
+		return -1;
+	i2c_pca_write_reg(I2C_PCA_O1, 0xFF);
+	i2c_pca_regO0_data &= I2C_PCAO0_MASK_DIGS;
+	i2c_pca_regO0_data |= dig;
+	i2c_pca_write_reg(I2C_PCA_O0, i2c_pca_regO0_data);
+	i2c_pca_write_reg(I2C_PCA_O1, ~(1 << I2C_PCA1_G));
+	return 0;
+}
+
+/**
  * Draw a digit on the LED segment display.
 */
-int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx)
+int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig, uint8_t dx)
 {
 	static uint8_t (*get_seg[])(void) = {
 		&i2c_pca_get_seg_0,

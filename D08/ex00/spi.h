@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spi.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/27 15:44:51 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:01:10 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static inline void spi_init(void)
 	 * Set as output MOSI, SCK and SS (even if not used). This step must
 	 * occur before enabling SPI
 	 */
-	DDR_SPI = (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_SS);
+	DDR_SPI |= (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_SS);
 
 	/* Enable SPI master mode + prescaler of 64 */
 	SPCR |= (1 << SPE) | (1 << MSTR) | (1 << SPR0);

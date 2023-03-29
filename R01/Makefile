@@ -6,7 +6,7 @@
 #    By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/28 13:48:29 by lucaslefran      ###   ########.fr        #
+#    Updated: 2023/03/29 09:36:32 by lucaslefran      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC		= avr-gcc
 OBJCOPY		= avr-objcopy
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/cu.usbserial-141320
+USB 		= /dev/cu.usbserial-142320
 
 NAME		= atmega
 
@@ -54,10 +54,10 @@ clean:
 
 phony: all hex clean
 
-%.bin: %.c %.h 
+%.bin: %.c %.h
 	@$(CC) $(FLAGS) -o $@ -c $<
 
-$(PATH_MO)%.bin: $(PATH_MO)%.c $(PATH_MO)%.h 
+$(PATH_MO)%.bin: $(PATH_MO)%.c $(PATH_MO)%.h
 	@$(CC) $(FLAGS) -o $@ -c $<
 
 $(PATH_UT)%.bin: $(PATH_UT)%.c $(PATH_UT)%.h
