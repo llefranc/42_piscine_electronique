@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:20:43 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 10:16:26 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 13:06:55 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <util/delay.h>
 
 static int16_t adc_val;
+
+static const uint8_t dx[4] = { 0, 0, 0, 0 };
 
 /**
  * Delay the first internal sensor measurement to let it time to initialize,
@@ -43,7 +45,7 @@ void mode_x_adc_xxx_init(void)
 {
 	static uint8_t inputs[4] = { ADC_POT, ADC_LDR, ADC_NTC, ADC_TEMP };
 
-	UART_DEBUG("mode_1_adc_pot_init\r\n");
+	UART_DEBUG("mode_x_adc_xxx_init\r\n");
 	adc_mux_select(inputs[g_mode - 1]);
 	if (g_mode == E_MODE_4_ADC_TEMP) {
 		ADCSRA |= (1 << ADEN) | (1 << ADPS2) | (1 << ADPS1) |
@@ -83,8 +85,6 @@ void mode_4_adc_temp_exec_timer1(void)
 */
 void mode_x_adc_xxx_exec_timer0(void)
 {
-	static uint8_t dx[4] = { 0, 0, 0, 0 };
-
 	i2c_pca_draw_seg_nb(adc_val, dx, 4);
 }
 
@@ -101,7 +101,7 @@ void mode_x_adc_xxx_exec_timer1(void)
 */
 void mode_x_adc_xxx_clear(void)
 {
-	UART_DEBUG("mode_1_adc_pot_clear\r\n");
+	UART_DEBUG("mode_x_adc_xxx_clear\r\n");
 	timer0_clear();
 	timer1_clear();
 	adc_clear();

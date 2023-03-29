@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:26:08 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 10:01:31 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 10:53:56 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 #define NB_PRIMARY_COLOR 3
 
 static uint8_t col_index = 1;
+
+static const uint32_t rgb_pins[3] = { LED5_R, LED5_G, LED5_B };
+static const uint32_t spi_col[3] = { RED, GREEN, BLUE };
+static const uint8_t digs[4] = {
+	(1 << I2C_PCA0_DIG1),
+	(1 << I2C_PCA0_DIG2),
+	(1 << I2C_PCA0_DIG3),
+	(1 << I2C_PCA0_DIG4)
+};
 
 void mode_5_rgb_init(void)
 {
@@ -45,8 +54,6 @@ void mode_5_rgb_init(void)
 void mode_5_rgb_exec_timer0(void)
 {
 	static uint8_t i = 0;
-	static uint8_t digs[4] = { (1 << I2C_PCA0_DIG1), (1 << I2C_PCA0_DIG2),
-				   (1 << I2C_PCA0_DIG3), (1 << I2C_PCA0_DIG4) };
 
 	if (i == 0 || i == 3)
 		i2c_pca_draw_seg_line(digs[i]);
@@ -60,9 +67,6 @@ void mode_5_rgb_exec_timer0(void)
 
 void mode_5_rgb_exec_timer1(void)
 {
-	static uint32_t rgb_pins[3] = { LED5_R, LED5_G, LED5_B };
-	static uint32_t spi_col[3] = { RED, GREEN, BLUE };
-
 	PORTD &= ~((1 << LED5_R) | (1 << LED5_G) | (1 << LED5_B));
 	PORTD |= (1 << rgb_pins[col_index]);
 	spi_set_leds(B_LOW | spi_col[col_index], B_LOW | spi_col[col_index],

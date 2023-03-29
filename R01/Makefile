@@ -6,7 +6,7 @@
 #    By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/29 09:36:32 by lucaslefran      ###   ########.fr        #
+#    Updated: 2023/03/29 11:04:33 by lucaslefran      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS_MO		= mode.c mode_adc.c mode_aht.c mode_date.c mode_rgb.c
 BINS_MO		= $(SRCS_MO:.c=.bin)
 
 PATH_UT		= utils/
-SRCS_UT		= i2c_pca.c uart.c timer.c
+SRCS_UT		= i2c_pca.c i2c_aht.c uart.c timer.c
 BINS_UT		= $(SRCS_UT:.c=.bin)
 
 all: FLAGS = -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)

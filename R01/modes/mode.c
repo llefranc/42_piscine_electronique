@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:27 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 21:31:55 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/29 13:13:37 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ static void (*g_fptr_mode_init[LAST_MODE_NB + 1])(void) = {
 	&mode_x_adc_xxx_init,
 	&mode_x_adc_xxx_init,
 	&mode_5_rgb_init,
-	&mode_6_aht_temp_c_init,
-	&mode_7_aht_temp_f_init,
-	&mode_8_aht_humi_init,
+	&mode_x_aht_xxx_init,
+	&mode_x_aht_xxx_init,
+	&mode_x_aht_xxx_init,
 	&mode_9_date_hour_init,
 	&mode_10_date_day_init,
 	&mode_11_date_year_init
@@ -43,9 +43,9 @@ static void (*g_fptr_mode_clear[LAST_MODE_NB + 1])(void) = {
 	&mode_x_adc_xxx_clear,
 	&mode_x_adc_xxx_clear,
 	&mode_5_rgb_clear,
-	&mode_6_aht_temp_c_clear,
-	&mode_7_aht_temp_f_clear,
-	&mode_8_aht_humi_clear,
+	&mode_x_aht_xxx_clear,
+	&mode_x_aht_xxx_clear,
+	&mode_x_aht_xxx_clear,
 	&mode_9_date_hour_clear,
 	&mode_10_date_day_clear,
 	&mode_11_date_year_clear

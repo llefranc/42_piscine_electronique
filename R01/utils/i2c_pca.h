@@ -55,8 +55,9 @@ void i2c_pca_write_reg(uint8_t reg, uint8_t data);
 void i2c_pca_write_regO0(uint8_t mask, uint8_t data);
 uint8_t i2c_pca_read_reg(uint8_t reg);
 int8_t i2c_pca_draw_seg_line(uint8_t dig);
+int8_t i2c_pca_draw_seg_char(char c, uint8_t dig, uint8_t dx);
 int8_t i2c_pca_draw_seg_dig(uint8_t nb, uint8_t dig,  uint8_t dx);
-int8_t i2c_pca_draw_seg_nb(uint16_t nb, uint8_t *dx, uint8_t width);
+int8_t i2c_pca_draw_seg_nb(uint16_t nb, const uint8_t *dx, uint8_t width);
 void i2c_pca_reset_seg(void);
 
 #endif /* I2C_PCA_H */

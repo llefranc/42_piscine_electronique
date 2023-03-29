@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i2c.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 21:30:10 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/20 15:00:40 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:20:02 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 #define I2C_TWBR_VAL 18
 #define I2C_PRESCALER 4
 #define I2C_F_SCL = F_CPU/(16+2*TWBR_VAL*I2C_PRESCALER)
-
-#define I2C_SLA_ATH20 0x38
-
-uint8_t g_is_i2c_com_ongoing;
 
 static inline void i2c_init()
 {
