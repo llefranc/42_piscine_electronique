@@ -6,7 +6,7 @@
 #    By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/29 15:54:51 by lucaslefran      ###   ########.fr        #
+#    Updated: 2023/03/30 10:08:55 by lucaslefran      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC		= avr-gcc
 OBJCOPY		= avr-objcopy
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/cu.usbserial-142320
+USB 		= /dev/cu.usbserial-141330
 
 NAME		= atmega
 
@@ -30,7 +30,7 @@ SRCS_MO		= mode.c mode_adc.c mode_aht.c mode_date.c mode_rgb.c
 BINS_MO		= $(SRCS_MO:.c=.bin)
 
 PATH_UT		= utils/
-SRCS_UT		= i2c_pca.c i2c_aht.c uart.c timer.c avr_string.c
+SRCS_UT		= i2c_pca.c i2c_aht.c i2c_pcf.c uart.c timer.c avr_string.c
 BINS_UT		= $(SRCS_UT:.c=.bin)
 
 all: FLAGS = -Wall -Wextra -Werror -Os -mmcu=$(DEVICE) -DUART_BAUDRATE=$(UART_BAUDRATE) -DF_CPU=$(F_CPU)

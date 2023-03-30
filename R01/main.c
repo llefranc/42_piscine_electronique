@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 18:02:14 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:05:52 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ ISR(TIMER0_COMPA_vect)
 	case E_MODE_10_DATE_DAY:
 		mode_10_date_day_timer0();
 		break;
+	case E_MODE_11_DATE_YEAR:
+		mode_11_date_year_timer0();
+		break;
 	default:
 		UART_DEBUG("TIMER0_COMPA_vect error\r\n");
 	}
@@ -66,8 +69,6 @@ ISR(TIMER0_COMPA_vect)
 
 ISR(TIMER1_COMPA_vect)
 {
-	UART_DEBUG("TIMER1_COMPA_vect\r\n");
-
 	switch (g_mode) {
 	case E_MODE_0_START_SEQ:
 		switch_mode(MODE_START_NEXT);
@@ -95,6 +96,7 @@ ISR(TIMER1_COMPA_vect)
 		break;
 	case E_MODE_9_DATE_HOUR:
 	case E_MODE_10_DATE_DAY:
+	case E_MODE_11_DATE_YEAR:
 		mode_x_date_xxx_timer1();
 		break;
 	default:

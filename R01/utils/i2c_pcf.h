@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mode_date.h                                        :+:      :+:    :+:   */
+/*   i2c_pcf.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 12:29:37 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/30 10:46:18 by lucaslefran      ###   ########.fr       */
+/*   Created: 2023/03/30 09:35:55 by lucaslefran       #+#    #+#             */
+/*   Updated: 2023/03/30 11:10:12 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MODE_DATE_H
-#define MODE_DATE_H
+#ifndef I2C_PCF_H
+#define I2C_PCF_H
 
 #include <avr/io.h>
 
-int8_t mode_date_update(char *buf);
+// https://www.nxp.com/docs/en/data-sheet/PCF8563.pdf
 
-void mode_x_date_xxx_init(void);
-void mode_x_date_xxx_timer1(void);
-void mode_x_date_xxx_clear(void);
+#define I2C_PCF_SLA 0b01010001
 
-void mode_9_date_time_timer0(void);
-void mode_10_date_day_timer0(void);
-void mode_11_date_year_timer0(void);
+struct date {
+	uint8_t sec;
+	uint8_t min;
+	uint8_t hour;
+	uint8_t day;
+	uint8_t month;
+	uint16_t year;
+};
 
-#endif /* MODE_DATE_H */
+void i2c_pcf_read_date(struct date *buf);
+void i2c_pcf_write_date(struct date *buf);
+
+#endif /* I2C_PCF_H */

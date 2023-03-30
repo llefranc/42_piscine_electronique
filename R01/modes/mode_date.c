@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:29:09 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 18:03:38 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:09:22 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../utils/avr_string.h"
 #include "../utils/timer.h"
 #include "../utils/i2c_pca.h"
+#include "../utils/i2c_pcf.h"
 
 #define START_INDEX_DAY 0
 #define START_INDEX_MONTH 3
@@ -35,15 +36,6 @@
 #define MIN_LEN 2
 #define SEC_LEN 2
 
-struct date {
-	uint16_t year;
-	uint8_t month;
-	uint8_t day;
-	uint8_t hour;
-	uint8_t min;
-	uint8_t sec;
-};
-
 static const uint8_t digs[4] = {
 	(1 << I2C_PCA0_DIG1),
 	(1 << I2C_PCA0_DIG2),
@@ -59,14 +51,7 @@ static const uint8_t nb_days_in_month[12] = { 31, 28, 31, 30, 31, 30, 31, 31,
  * Temporary copy used after a read of date registers of real time clock
  * through i2c.
  */
-static struct date actual_date = {
-	.year = 2023,
-	.month = 11,
-	.day = 16,
-	.hour = 18,
-	.min = 33,
-	.sec = 5
-};
+static struct date actual_date = {};
 
 /**
  * Parse day and month of date entry : "dd/mm/".
@@ -155,12 +140,15 @@ int8_t mode_date_update(char *buf)
 	if (is_correct_date(&tmp) == -1)
 		return -1;
 	actual_date = tmp;
-
-	// add here i2c comm to set timer
-
+	i2c_pcf_write_date(&actual_date);
 	return 0;
 }
 
+/**
+ * Init the date by reading from real time clock PCF8563 through i2c bus,
+ * init timer1 to match every 1 sec to actualize the date, and timer0 to match
+ * every 2.5ms to display time/day & month/year on segments.
+*/
 void mode_x_date_xxx_init(void)
 {
 	UART_DEBUG("mode_x_date_xxx_init\r\n");
@@ -172,13 +160,12 @@ void mode_x_date_xxx_init(void)
 	OCR0A = F_CPU / TIMER_PRESCALER_1024 / 400; /* Every 2.5ms */
 	TCCR0A = (1 << WGM01);
 	TCCR0B = (1 << CS02) | (1 << CS00);
+	i2c_pcf_read_date(&actual_date);
 }
 
-void mode_x_date_xxx_timer1(void)
-{
-	// request here i2c real time clock data
-}
-
+/**
+ * Display time on segments (ex: 18:03).
+*/
 void mode_9_date_time_timer0(void)
 {
 	static uint8_t dx[4] = { 0, 1, 0, 1 };
@@ -196,6 +183,9 @@ void mode_9_date_time_timer0(void)
 		i = 0;
 }
 
+/**
+ * Display day and month on segments (ex: 09.03).
+*/
 void mode_10_date_day_timer0(void)
 {
 	static uint8_t dx[4] = { 0, 0, 0, 1 };
@@ -213,6 +203,27 @@ void mode_10_date_day_timer0(void)
 		i = 0;
 }
 
+/**
+ * Display year on segments (ex: 2023).
+*/
+void mode_11_date_year_timer0(void)
+{
+	static uint8_t dx[4] = {};
+
+	i2c_pca_draw_seg_nb(actual_date.year, dx, 0);
+}
+
+/**
+ * Read the date from real time clock PCF8563 through i2c bus.
+*/
+void mode_x_date_xxx_timer1(void)
+{
+	i2c_pcf_read_date(&actual_date);
+}
+
+/**
+ * Reset timers and segments.
+*/
 void mode_x_date_xxx_clear(void)
 {
 	UART_DEBUG("mode_x_date_xxx_clear\r\n");
