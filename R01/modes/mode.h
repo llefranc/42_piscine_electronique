@@ -6,17 +6,12 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:37 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/28 13:18:42 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:28:08 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MODE_H
 #define MODE_H
-
-#include "mode_adc.h"
-#include "mode_rgb.h"
-#include "mode_aht.h"
-#include "mode_date.h"
 
 #include <avr/io.h>
 

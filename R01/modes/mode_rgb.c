@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:26:08 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 10:53:56 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:22:23 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static const uint8_t digs[4] = {
 void mode_5_rgb_init(void)
 {
 	UART_DEBUG("mode_5_rgb_init\r\n");
-
 	spi_init();
 
 	TIMSK0 = (1 << OCIE0A);
@@ -46,7 +45,7 @@ void mode_5_rgb_init(void)
 	TIMSK1 |= (1 << OCIE1A);
 	TCCR1B |= (1 << WGM12) | (1 << CS12) | (1 << CS10);
 
-	spi_set_leds(B_LOW | RED, B_LOW | RED, B_LOW | RED);
+	spi_set_leds(B_MED | RED, B_MED | RED, B_MED | RED);
 	PORTD |= (1 << LED5_R);
 	col_index = 1;
 }
@@ -69,8 +68,8 @@ void mode_5_rgb_exec_timer1(void)
 {
 	PORTD &= ~((1 << LED5_R) | (1 << LED5_G) | (1 << LED5_B));
 	PORTD |= (1 << rgb_pins[col_index]);
-	spi_set_leds(B_LOW | spi_col[col_index], B_LOW | spi_col[col_index],
-		     B_LOW | spi_col[col_index]);
+	spi_set_leds(B_MED | spi_col[col_index], B_MED | spi_col[col_index],
+		     B_MED | spi_col[col_index]);
 	if (++col_index >= NB_PRIMARY_COLOR)
 		col_index = 0;
 }

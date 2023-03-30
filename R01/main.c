@@ -6,20 +6,22 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/30 11:05:52 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:32:42 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "modes/mode.h"
+#include "modes/mode_adc.h"
+#include "modes/mode_rgb.h"
+#include "modes/mode_aht.h"
+#include "modes/mode_date.h"
 
 #include "utils/io.h"
 #include "utils/uart.h"
 #include "utils/i2c.h"
 #include "utils/i2c_pca.h"
-#include "utils/spi.h"
-#include "utils/adc.h"
 #include "utils/timer.h"
 #include "utils/avr_string.h"
-#include "modes/mode.h"
-#include "modes/mode_date.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>

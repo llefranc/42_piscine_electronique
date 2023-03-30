@@ -6,7 +6,7 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:27:23 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 13:27:24 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:25:49 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 #include "../utils/i2c_pca.h"
 #include "../utils/timer.h"
 
+/* Used to display "----" on segments before aht20 first measurement is done */
 static uint8_t wait_first_measurement;
+
 static uint16_t aht_val;
 static const uint8_t digs[4] = {
 	(1 << I2C_PCA0_DIG4),
@@ -26,6 +28,11 @@ static const uint8_t digs[4] = {
 	(1 << I2C_PCA0_DIG1)
 };
 
+/**
+ * Send start measurement command through i2c bus to AHT20, init timer1 to match
+ * every 1 sec to do a new measurement, and timer0 to match every 2.5ms to
+ * display temperature/humidity on segments.
+*/
 void mode_x_aht_xxx_init(void)
 {
 	UART_DEBUG("mode_x_aht_xxx_init\r\n");

@@ -13,7 +13,6 @@
 #ifndef I2C_PCA_H
 #define I2C_PCA_H
 
-#include "i2c.h"
 #include <avr/io.h>
 
 #define I2C_PCA_SLA 0b0100000

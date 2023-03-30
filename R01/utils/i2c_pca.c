@@ -6,11 +6,13 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 13:25:33 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:30:35 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "i2c_pca.h"
+
+#include "i2c.h"
 
 #include <util/twi.h>
 

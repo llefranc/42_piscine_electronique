@@ -6,14 +6,13 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 10:23:59 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/29 13:19:40 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:29:55 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "i2c_aht.h"
 
 #include "i2c.h"
-#include "uart.h"
 
 #include <util/twi.h>
 

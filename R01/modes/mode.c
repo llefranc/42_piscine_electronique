@@ -6,11 +6,16 @@
 /*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 17:12:27 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/29 17:49:44 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 11:28:24 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mode.h"
+
+#include "mode_adc.h"
+#include "mode_rgb.h"
+#include "mode_aht.h"
+#include "mode_date.h"
 
 #include "../utils/uart.h"
 #include "../utils/timer.h"
