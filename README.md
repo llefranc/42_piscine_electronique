@@ -1,6 +1,6 @@
 # Piscine électronique (@42Paris)
 
-[![Watch the video](https://img.youtube.com/vi/Q54Xc41ZGNc/maxresdefault.jpg)](https://youtu.be/Q54Xc41ZGNc)
+[![Watch the video](https://img.youtube.com/vi/Q54Xc41ZGNc/hqdefault.jpg)](https://youtu.be/Q54Xc41ZGNc)
 
 https://www.youtube.com/watch?v=Q54Xc41ZGNc&ab_channel=lucaslefrancq
 
