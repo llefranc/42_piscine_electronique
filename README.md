@@ -43,7 +43,7 @@ A new pool of exercises for a new thematic was unlocked each day of the week dur
 
 There was also each weekend a rush project.
 
-- ➡️ R00: Game using I2C protocol (unfortunately I didn't have enough time to do this one).
+- ➡️ R00: Game using I2C protocol *(unfortunately I didn't have enough time to do this one)*.
 - ➡️ R01: A program interacting with all the devkit's components.
 
 [1]: file:///mnt/nfs/homes/llefranc/Downloads/ATMEGA48A.PDF
