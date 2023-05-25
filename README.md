@@ -1,6 +1,6 @@
 # Piscine électronique (@42Paris)
 
-⏬⏬⏬  Watch the video of the result after two weeks of work on Youtube  ⏬⏬⏬
+⬇️  Below is the video of the result after two weeks of work  ⬇️
 
 [![Watch the video](https://github.com/llefranc/42_piscine_electronique/blob/main/youtube_screen.png)](https://youtu.be/Q54Xc41ZGNc)
 
