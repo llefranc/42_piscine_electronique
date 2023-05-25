@@ -32,7 +32,7 @@ A new pool of exercises for a new thematic was unlocked each day of the week dur
 
 - ➡️ D00: I/O registers.
 - ➡️ D01: Timers and PWM cycles.
-- ➡️ D02: Interruptions.
+- ➡️ D02: Interrupts.
 - ➡️ D03: UART protocol.
 - ➡️ D04: I2C protocol.
 - ➡️ D05: EEPROM.
