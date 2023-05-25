@@ -9,7 +9,7 @@
 This was an optionnal project that I did which introduced me to the world of microcontroller programming in C. 
 
 42Chips, the electronic association from 42 school designed a dev kit with several components:
-- An ATMega328P microcontroller with RAM and EEPROM
+- An ATMega328P microcontroller
 - Several push buttons
 - Several red LEDs
 - A temperature and humidity sensor reachable through I2C bus
