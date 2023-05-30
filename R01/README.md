@@ -17,17 +17,17 @@ Each mode display the value of a component connected to the ATMega328P. When you
 ## Code architecture
 
 Each mode has 4 different routines:
-- An init routine, called to init the mode (init components' ressources and timer0/timer1 interrupts).
-- A clear routine, called to clear components' ressources and timer0/timer1 interrupts.
-- A timer0 routine, used to draw the mode value on the segments-display each x ms.
-- A timer1 routine, used to refresh the mode value each x ms.
+- An **init routine**, called to init the mode (init components' ressources and timer0/timer1 interrupts).
+- A **clear routine**, called to clear components' ressources and timer0/timer1 interrupts.
+- A **timer0 routine**, used to draw the mode value on the segments-display each x ms.
+- A **timer1 routine**, used to refresh the mode value each x ms.
 
 > Some modes have the same routines when it was possible to minimize the code size.
 
 When a button is pressed:
 
-- :one: the clear routine of the actual mode is called
-- 2️⃣ the init routine of the prev/next mode is then called.
+- The **clear routine** of the actual mode is called
+- The **init routine** of the prev/next mode is then called.
 
 ## Explanation of the different modes
 
