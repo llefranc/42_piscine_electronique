@@ -40,14 +40,14 @@ When a button is pressed:
 - ➡️ **Mode 1**: potentiometer value through ADC.  
 - ➡️ **Mode 2**: LDR value through ADC.  
 - ➡️ **Mode 3**: NTC value through ADC.  
-➡️ **Mode 4**: internal temp sensor through ADC.  
-➡️ **Mode 5**: setting RGB LEDs through SPI bus.  
-➡️ **Mode 6**: temp sensor in Cel through I2C bus.  
-➡️ **Mode 7**: temp sensor in Far through I2C bus.   
-➡️ **Mode 8**: humidity sensor in percentage through I2C bus. 
-➡️ **Mode 9**: time from RTC through I2C bus.  
-➡️ **Mode 10**: day and month from RTC through I2C.  
-➡️ **Mode 11**: year from RTC through I2C.  
+- ➡️ **Mode 4**: internal temp sensor through ADC.  
+- ➡️ **Mode 5**: setting RGB LEDs through SPI bus.  
+- ➡️ **Mode 6**: temp sensor in Cel through I2C bus.  
+- ➡️ **Mode 7**: temp sensor in Far through I2C bus.   
+- ➡️ **Mode 8**: humidity sensor in percentage through I2C bus. 
+- ➡️ **Mode 9**: time from RTC through I2C bus.  
+- ➡️ **Mode 10**: day and month from RTC through I2C.  
+- ➡️ **Mode 11**: year from RTC through I2C.  
 
 
 [1]: https://www.oreilly.com/library/view/linux-device-drivers/0596000081/ch09s05.html
