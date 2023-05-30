@@ -2,11 +2,11 @@
 
 The goal of this last project was to develop a firmware for the devboard to test that all the components were correctly working.
 
-⚠️⚠️⚠️ **When I did this project, I wasn't aware that it was a [bad practice to perform longish tasks within a interrupt handler][1]** 😮‍💨 ⚠️⚠️⚠️ 
+⚠️ **When I did this project, I wasn't aware that it was a [bad practice to perform longish tasks within a interrupt handler][1]** 😮‍💨 ⚠️  
 
 Nowadays I would have implement this program by splitting the interrupt handlers into two halves, like it's done in Linux, moving the routines to the main loop.
 
-This project still show my coding style if you focus only on the routines code called from ISRs.
+This project still show my coding style if you focus only on the routines code called from ISRs. :thumbsup:
 
 ## About
 
@@ -31,7 +31,7 @@ When a button is pressed:
 
 ## Explanation of the different modes
 
-- **Mode 1**: potentiometer value through ADC
+➡️ **Mode 1**: potentiometer value through ADC
 - Mode 2: LDR value through ADC
 - Mode 3: NTC value through ADC
 - Mode 4: internal temp sensor through ADC
