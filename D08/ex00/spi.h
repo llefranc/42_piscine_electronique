@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spi.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 14:27:07 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/26 16:50:11 by llefranc         ###   ########.fr       */
+/*   Updated: 2023/03/29 10:01:10 by lucaslefran      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static inline void spi_init(void)
 	 * Set as output MOSI, SCK and SS (even if not used). This step must
 	 * occur before enabling SPI
 	 */
-	DDR_SPI = (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_SS);
+	DDR_SPI |= (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_SS);
 
 	/* Enable SPI master mode + prescaler of 64 */
 	SPCR |= (1 << SPE) | (1 << MSTR) | (1 << SPR0);
@@ -116,7 +116,7 @@ static inline void spi_send_led_rgb(uint8_t bright, uint8_t r, uint8_t g,
 /**
  * Set the 3 LEDs through SPI.
 */
-static void spi_set_leds(uint32_t led1, uint32_t led2, uint32_t led3)
+static inline void spi_set_leds(uint32_t led1, uint32_t led2, uint32_t led3)
 {
 	spi_send_led_start();
 	spi_send_led_rgb(PADDING_BITS | (uint8_t)(led1 >> 24), led1 >> 16,

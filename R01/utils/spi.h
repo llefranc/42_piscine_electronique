@@ -25,7 +25,7 @@
 
 #define PADDING_BITS 0xE0
 
-#define LED_OFF 0
+#define LED_OFF 0xE0000000
 
 /* Levels of brightness */
 #define B_LOW 0x01000000
@@ -54,6 +54,14 @@ static inline void spi_init(void)
 
 	/* Enable SPI master mode + prescaler of 64 */
 	SPCR |= (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+}
+
+/**
+ * Deactivate SPI module.
+*/
+static inline void spi_clear(void)
+{
+	SPCR = 0;
 }
 
 /**
