@@ -1,6 +1,6 @@
 # Piscine électronique (@42Paris)
 
-⬇️  Below is the video of the result after two weeks of work  ⬇️
+⬇️  Below is the video of the result after two weeks of work ([code here][3])  ⬇️
 
 [![Watch the video](https://github.com/llefranc/42_piscine_electronique/blob/main/youtube_screen.png)](https://youtu.be/Q54Xc41ZGNc)
 
@@ -48,3 +48,4 @@ There was also each weekend a rush project.
 
 [1]: file:///mnt/nfs/homes/llefranc/Downloads/ATMEGA48A.PDF
 [2]: https://github.com/llefranc/42_piscine_electronique/blob/main/devkit_schema.pdf
+[3]: https://github.com/llefranc/42_piscine_electronique/tree/main/R01
