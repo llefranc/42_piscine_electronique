@@ -42,8 +42,8 @@ When a button is pressed:
 - ➡️ **Mode 3**: NTC value through ADC.  
 - ➡️ **Mode 4**: internal temp sensor through ADC.  
 - ➡️ **Mode 5**: setting RGB LEDs through SPI bus.  
-- ➡️ **Mode 6**: temp sensor in Cel through I2C bus.  
-- ➡️ **Mode 7**: temp sensor in Far through I2C bus.   
+- ➡️ **Mode 6**: temp sensor in Celius through I2C bus.  
+- ➡️ **Mode 7**: temp sensor in Farenheit through I2C bus.   
 - ➡️ **Mode 8**: humidity sensor in percentage through I2C bus. 
 - ➡️ **Mode 9**: time from RTC through I2C bus.  
 - ➡️ **Mode 10**: day and month from RTC through I2C.  
