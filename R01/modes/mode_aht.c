@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode_aht.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
+/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:27:23 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/30 11:25:49 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 17:54:27 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void mode_x_aht_xxx_init(void)
 	wait_first_measurement = 1;
 }
 
+/**
+ * Display the value of AHT20 with the proper unit on segments.
+*/
 void mode_x_aht_xxx_exec_timer0(char unit)
 {
 	static uint8_t i = 0;
@@ -69,6 +72,9 @@ void mode_x_aht_xxx_exec_timer0(char unit)
 	}
 }
 
+/**
+ * Read the AHT20 measurement through i2c and calculate temperature in Celsius.
+*/
 void mode_6_aht_temp_c_exec_timer1(void)
 {
 	i2c_aht_read_measurement();
@@ -77,6 +83,10 @@ void mode_6_aht_temp_c_exec_timer1(void)
 	i2c_aht_start_measurement();
 }
 
+/**
+ * Read the AHT20 measurement through i2c and calculate temperature in
+ * Fahrenheit.
+*/
 void mode_7_aht_temp_f_exec_timer1(void)
 {
 	i2c_aht_read_measurement();
@@ -85,6 +95,9 @@ void mode_7_aht_temp_f_exec_timer1(void)
 	i2c_aht_start_measurement();
 }
 
+/**
+ * Read the AHT20 measurement through i2c and calculate humidity percentage.
+*/
 void mode_8_aht_humi_exec_timer1(void)
 {
 	i2c_aht_read_measurement();
@@ -93,6 +106,9 @@ void mode_8_aht_humi_exec_timer1(void)
 	i2c_aht_start_measurement();
 }
 
+/**
+ * Reset timer0, timer1, adc registers and turn off segments.
+*/
 void mode_x_aht_xxx_clear(void)
 {
 	UART_DEBUG("mode_x_aht_xxx_clear\r\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
+/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:17:22 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/30 11:32:42 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 16:06:08 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ ISR(TIMER2_COMPA_vect)
 	}
 }
 
+/* SW1, incrementing mode */
 ISR(INT0_vect)
 {
 	static int8_t is_pressed = -1;

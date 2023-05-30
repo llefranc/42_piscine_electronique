@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+         #
+#    By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/13 15:03:52 by llefranc          #+#    #+#              #
-#    Updated: 2023/03/30 10:08:55 by lucaslefran      ###   ########.fr        #
+#    Updated: 2023/03/30 14:33:24 by llefranc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC		= avr-gcc
 OBJCOPY		= avr-objcopy
 # arduino bootloader
 PROGRAMMER	= arduino
-USB 		= /dev/cu.usbserial-141330
+USB 		= /dev/ttyUSB0
 
 NAME		= atmega
 

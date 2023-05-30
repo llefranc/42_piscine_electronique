@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i2c_pcf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
+/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:41:56 by lucaslefran       #+#    #+#             */
-/*   Updated: 2023/03/30 11:10:21 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 17:52:19 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ static inline uint16_t date_reg_to_year(uint8_t year_reg_data)
 	       (year_reg_data & MASK_YEAR_UNIT_PLACE) + ACTUAL_MILLENIUM;
 }
 
+/**
+ * Read through i2c the date from real time clock PCF8563T.
+*/
 void i2c_pcf_read_date(struct date *buf)
 {
 	i2c_start();
@@ -94,6 +97,9 @@ static inline uint8_t xxx_to_date_reg(uint8_t data)
 	return ((data / 10) << 4) + data % 10;
 }
 
+/**
+ * Write the registers of PCF8563T through i2c to update the date.
+*/
 void i2c_pcf_write_date(struct date *buf)
 {
 	i2c_start();

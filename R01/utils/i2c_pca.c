@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   i2c_pca.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucaslefrancq <lucaslefrancq@student.42    +#+  +:+       +#+        */
+/*   By: llefranc <llefranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:14:21 by llefranc          #+#    #+#             */
-/*   Updated: 2023/03/30 11:30:35 by lucaslefran      ###   ########.fr       */
+/*   Updated: 2023/03/30 17:45:22 by llefranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,9 @@ int8_t i2c_pca_draw_seg_nb(uint16_t nb, const uint8_t *dx, uint8_t width)
 	return 0;
 }
 
+/**
+ * Turn off all segments.
+*/
 void i2c_pca_reset_seg(void)
 {
 	i2c_pca_regO0_data &= I2C_PCAO0_MASK_DIGS;
