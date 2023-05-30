@@ -37,9 +37,9 @@ When a button is pressed:
 
 ## Explanation of the different modes
 
-➡️ **Mode 1**: potentiometer value through ADC.  
-➡️ **Mode 2**: LDR value through ADC.  
-➡️ **Mode 3**: NTC value through ADC.  
+- ➡️ **Mode 1**: potentiometer value through ADC.  
+- ➡️ **Mode 2**: LDR value through ADC.  
+- ➡️ **Mode 3**: NTC value through ADC.  
 ➡️ **Mode 4**: internal temp sensor through ADC.  
 ➡️ **Mode 5**: setting RGB LEDs through SPI bus.  
 ➡️ **Mode 6**: temp sensor in Cel through I2C bus.  
