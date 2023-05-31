@@ -8,7 +8,7 @@ The goal of this last project was to develop a firmware for the devboard to test
 
 Nowadays **I would have implement this program by splitting the interrupt handlers into two halves**, like it's done in Linux, moving the routines to the main loop.
 
-This project still show my coding style if you focus only on the routines code called from ISRs. :thumbsup:
+This project still show my coding style if you focus only on the code of the routines called from ISRs. :thumbsup:
 
 ## Demo
 
